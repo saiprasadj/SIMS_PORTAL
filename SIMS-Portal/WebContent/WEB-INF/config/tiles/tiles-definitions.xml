@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+
+	<!-- Layout Definitions -->
+	<definition name="master.layout" template="/WEB-INF/views/layouts/master-layout.jsp" />
+
+	<definition name="main.layout" extends="master.layout">
+		<put-attribute name="header" value="/WEB-INF/views/template/header.jsp" />
+		<put-attribute name="sidebar-nav"
+			value="/WEB-INF/views/template/sidebar-nav.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/views/template/footer.jsp" />
+	</definition>
+
+	<definition name="main.layout.full" extends="master.layout">
+		<put-attribute name="header" value="/WEB-INF/views/template/header.jsp" />
+		<put-attribute name="sidebar-nav" value="" />
+		<put-attribute name="footer" value="/WEB-INF/views/template/footer.jsp" />
+	</definition>
+
+
+	<definition name="login.page" extends="main.layout.full">
+		<put-attribute name="title" value="Login Page"></put-attribute>
+		<put-attribute name="body" value="/WEB-INF/views/pages/login.jsp"></put-attribute>
+	</definition>
+
+
+	<!-- Page Definition for Admin -->
+	<definition name="welcome.page" extends="main.layout">
+		<put-attribute name="title" value="SIMS"></put-attribute>
+		<put-attribute name="body" value="/WEB-INF/views/pages/welcome.jsp"></put-attribute>
+	</definition>
+	
+	<!-- Masters Page Configuration STARTS-->
+	
+	<definition name="account.page" extends="main.layout">
+		<put-attribute name="title" value="Account Master"></put-attribute>
+		<put-attribute name="body" value="/WEB-INF/views/pages/masters/accountmaster.jsp"></put-attribute>
+	</definition>
+	
+	<!-- Masters Page Configuration ENDS -->
+	
+	
+	
+	
+	
+	
+	
+	
+	<definition name="profile.page" extends="main.layout">
+		<put-attribute name="title" value="profile	"></put-attribute>
+		<put-attribute name="body" value="/WEB-INF/views/pages/profile.jsp"></put-attribute>
+	</definition>
+
+	<definition name="addNewUser.page" extends="main.layout">
+		<put-attribute name="title" value="AddNewUser"></put-attribute>
+		<put-attribute name="body"
+			value="/WEB-INF/views/pages/addNewUser.jsp"></put-attribute>
+	</definition>
+
+	<definition name="edit.page" extends="main.layout">
+		<put-attribute name="title" value="Edit"></put-attribute>
+		<put-attribute name="body" value="/WEB-INF/views/pages/edit.jsp"></put-attribute>
+	</definition>
+
+
+	<definition name="unsoldAssign.page" extends="main.layout">
+		<put-attribute name="title" value="UnsoldAssign"></put-attribute>
+		<put-attribute name="body"
+			value="/WEB-INF/views/pages/unsoldAssign.jsp"></put-attribute>
+	</definition>
+
+	<definition name="percentage.page" extends="main.layout">
+		<put-attribute name="title" value="Percentage"></put-attribute>
+		<put-attribute name="body"
+			value="/WEB-INF/views/pages/percentage.jsp"></put-attribute>
+	</definition>
+
+	<definition name="classification.page" extends="main.layout">
+		<put-attribute name="title" value="Classification"></put-attribute>
+		<put-attribute name="body"
+			value="/WEB-INF/views/pages/classification.jsp"></put-attribute>
+	</definition>
+
+	<definition name="resubmit.page" extends="main.layout">
+		<put-attribute name="title" value="Resubmit"></put-attribute>
+		<put-attribute name="body" value="/WEB-INF/views/pages/resubmit.jsp"></put-attribute>
+	</definition>
+	<definition name="report.page" extends="main.layout">
+		<put-attribute name="title" value="Report"></put-attribute>
+		<put-attribute name="body" value="/WEB-INF/views/pages/report.jsp"></put-attribute>
+	</definition>
+
+
+	<definition name="changepassword.page" extends="main.layout.full">
+		<put-attribute name="title" value="Login Page"></put-attribute>
+		<put-attribute name="body"
+			value="/WEB-INF/views/pages/changepassword.jsp"></put-attribute>
+	</definition>
+
+	<!-- Approver page -->
+	<definition name="approver.layout" extends="main.layout.full">
+		<put-attribute name="header" value="/WEB-INF/views/template/header.jsp" />
+		<put-attribute name="sidebar-nav"
+			value="/WEB-INF/views/template/sidebar-nav.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/views/template/footer.jsp" />
+	</definition>
+	<definition name="profile.page" extends="main.layout">
+		<put-attribute name="title" value="profile"></put-attribute>
+		<put-attribute name="body" value="/WEB-INF/views/pages/profile.jsp"></put-attribute>
+	</definition>
+
+	<definition name="adhocRequest.page" extends="approver.layout">
+		<put-attribute name="title" value="adhocRequest"></put-attribute>
+		<put-attribute name="body"
+			value="/WEB-INF/views/pages/adhocRequest.jsp"></put-attribute>
+	</definition>
+	<definition name="unsold.page" extends="approver.layout">
+		<put-attribute name="title" value="UnsoldRequest"></put-attribute>
+		<put-attribute name="body" value="/WEB-INF/views/pages/unsold.jsp"></put-attribute>
+	</definition>
+
+	<definition name="pendingAdhocRequest.page" extends="approver.layout">
+		<put-attribute name="title" value="pendingAdhocRequest"></put-attribute>
+		<put-attribute name="body"
+			value="/WEB-INF/views/pages/pendingAdhocRequest.jsp"></put-attribute>
+	</definition>
+	<definition name="pendingUnsoldAssign.page" extends="approver.layout">
+		<put-attribute name="title" value="pendingUnsoldAssign"></put-attribute>
+		<put-attribute name="body"
+			value="/WEB-INF/views/pages/pendingUnsoldAssign.jsp"></put-attribute>
+	</definition>
+
+
+
+
+
+</tiles-definitions>

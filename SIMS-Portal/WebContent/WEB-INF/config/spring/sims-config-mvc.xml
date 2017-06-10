@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:beans="http://www.springframework.org/schema/beans" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:task="http://www.springframework.org/schema/task"
+	 xmlns:ws="http://jax-ws.dev.java.net/spring/core"
+       xmlns:wss="http://jax-ws.dev.java.net/spring/servlet"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc 
+	        http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context 
+		http://www.springframework.org/schema/context/spring-context.xsd
+		 http://www.springframework.org/schema/tx 
+		 http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+          http://www.springframework.org/schema/task
+          http://jax-ws.dev.java.net/spring/core http://jax-ws.java.net/spring/core.xsd
+            http://jax-ws.dev.java.net/spring/core http://jax-ws.java.net/spring/core.xsd
+            http://jax-ws.dev.java.net/spring/servlet http://jax-ws.java.net/spring/servlet.xsd
+          http://www.springframework.org/schema/task/spring-task-3.0.xsd">
+	
+	<!-- Enables the Spring MVC @Controller programming model -->
+    <mvc:annotation-driven validator="validator"/>
+
+
+	<!--auto-wire annotation config <context:annotation-config />-->
+    <beans:bean	class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor" />
+
+	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
+	<mvc:resources mapping="/resources/**" location="/resources/" />
+
+	<!-- Tile resolver -->
+	<beans:bean id="tilesviewResolver" class="org.springframework.web.servlet.view.tiles3.TilesViewResolver"
+		p:order="0" />
+	<beans:bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
+		<beans:property name="definitions">
+			<beans:list>
+				<beans:value>/WEB-INF/config/tiles/tiles-definitions.xml</beans:value>
+			</beans:list>
+		</beans:property>
+	</beans:bean>
+
+	<beans:bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
+		<beans:property name="validationMessageSource" ref="messageSource" />
+	</beans:bean>
+	
+   <beans:bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+	  <beans:property name="basename" value="/WEB-INF/i18/messages" />
+	  <beans:property name="defaultEncoding" value="UTF-8" />
+   </beans:bean>   
+   
+   <beans:bean id="localeResolver" class="org.springframework.web.servlet.i18n.CookieLocaleResolver">
+	  <beans:property name="defaultLocale" value="en" />
+	  <beans:property name="cookieName" value="myLocaleCookie" />
+	  <beans:property name="cookieMaxAge" value="31556926" />
+   </beans:bean>
+   
+   <beans:bean id="localeChangeInterceptor" class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+        <beans:property name="paramName" value="mylocale" />
+   </beans:bean>
+   
+     <!-- <wss:binding url="/hello">
+        <wss:service>
+            <ws:service bean="#helloWs"/>
+        </wss:service>
+    </wss:binding>
+
+    Web service methods
+    <beans:bean id="helloWs" class="com.abp.test.ws.HelloWorldWS">
+    	<beans:property name="helloWorldBo" ref="HelloWorldBo" />
+    </beans:bean>
+
+    <beans:bean id="HelloWorldBo" class="com.abp.test.ws.impl.HelloWorldBoImpl" />
+ -->
+</beans:beans>
