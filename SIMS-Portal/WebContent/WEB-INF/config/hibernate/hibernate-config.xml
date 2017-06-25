@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/tx 
+        http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/context 
+        http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<context:property-placeholder location="classpath:database.properties" />
+
+	<!-- Hikari Connection Pool Config -->
+	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
+		<property name="dataSourceProperties">
+			<props>
+				<prop key="url">${jdbc.url}</prop>
+				<prop key="user">${jdbc.username}</prop>
+				<prop key="password">${jdbc.password}</prop>
+				<!-- Performance options -->
+				<prop key="cachePrepStmts">true</prop>
+				<prop key="prepStmtCacheSize">250</prop>
+				<prop key="prepStmtCacheSqlLimit">2048</prop>
+				<prop key="useServerPrepStmts">true</prop>    <!-- use if your MySQL server is 5.1 or above -->
+			</props>
+		</property>
+		<property name="poolName">
+			<value>${hibernate.hikari.poolName}</value>
+		</property>
+		<property name="connectionTestQuery">
+			<value>${hibernate.hikari.connectionTestQuery}</value>
+		</property>
+		<property name="dataSourceClassName">
+			<value>${hibernate.hikari.dataSourceClassName}</value>
+		</property>
+		<property name="maximumPoolSize">
+			<value>${hibernate.hikari.maximumPoolSize}</value>
+		</property>
+		<property name="idleTimeout">
+			<value>${hibernate.hikari.idleTimeout}</value>
+		</property>
+		<property name="minimumIdle">
+			<value>${hibernate.hikari.minimumIdle}</value>
+		</property>
+	</bean>
+
+	<!-- DataSource -->
+	<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource"
+		destroy-method="close">
+		<constructor-arg ref="hikariConfig" />
+	</bean>
+
+	<!-- JPA EntityManagerFactory -->
+	<bean id="entityManagerFactory"
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="packagesToScan" value="com.sims.portal.model.*,com.sims.portal.models.*" />
+		<property name="jpaVendorAdapter">
+			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" />
+		</property>
+		<property name="jpaProperties">
+			<props>
+				<prop key="hibernate.dialect">${hibernate.dialect}</prop>
+				<prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2ddl.auto}</prop>
+				<prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
+				<prop key="hibernate.format_sql">${hibernate.format_sql}</prop>
+			</props>
+		</property>
+	</bean>
+	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="entityManagerFactory" />
+	</bean>
+
+	<tx:annotation-driven transaction-manager="transactionManager" />
+
+	<bean id="persistenceExceptionTranslationPostProcessor"
+		class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
+
+</beans> 

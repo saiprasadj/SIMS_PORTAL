@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:beans="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.2.xsd 
+    http://www.springframework.org/schema/security 
+    http://www.springframework.org/schema/security/spring-security.xsd">
+
+	<http pattern="/resources/**" security="none" />
+
+	<http auto-config="true" disable-url-rewriting="true">
+		<intercept-url pattern="/login" access="permitAll"/>
+		<intercept-url pattern="/processLogin" access="permitAll"/>
+			
+		<intercept-url pattern="/admin/**" access="isAuthenticated()" />
+		<intercept-url pattern="/master/**" access="isAuthenticated()" />
+		<intercept-url pattern="/manager/**" access="isAuthenticated()" />
+			 
+		<intercept-url pattern="/accessdenied" access="permitAll" />
+		<intercept-url pattern="/*" access="isAuthenticated()" />
+		<intercept-url pattern="/welcome" access="hasAnyRole('ROLE_USER','ROLE_ADMIN','ROLE_MIS')" />
+		<!--  <intercept-url pattern="/adhocRequest" access="hasRole('ROLE_ADMIN')" />-->
+		
+		
+		<form-login login-processing-url="/processLogin" login-page="/login" default-target-url="/welcome"
+			authentication-failure-url="/login?error" username-parameter="username"
+			password-parameter="password" />
+		
+			
+		<logout logout-success-url="/login" logout-url="/performlogout" invalidate-session="true" 
+    		delete-cookies="JSESSIONID" />
+		<csrf />
+		
+		<session-management invalid-session-url="/login">
+			<concurrency-control max-sessions="-1" expired-url="/login" />
+		</session-management>
+
+		<!-- <port-mappings>
+			Default ports
+			<port-mapping http="80" https="443" />
+			Websphere default ports
+			<port-mapping http="9080" https="9443" />
+			Tomcat default ports
+			<port-mapping http="8080" https="8443" />
+			Jetty custom ports
+			<port-mapping http="7777" https="7443" />
+		</port-mappings> -->
+	</http>
+
+	<authentication-manager alias="authenticationManager">
+		<authentication-provider user-service-ref="defaultUserDetailsService">
+			<password-encoder ref="encoder"></password-encoder>
+		</authentication-provider>
+	</authentication-manager>
+
+	<beans:bean id="defaultUserDetailsService"
+		class="com.sims.portal.user.services.impl.DefaultUserDetailsService"></beans:bean>
+
+	<beans:bean id="encoder"
+		class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">
+		<beans:constructor-arg name="strength" value="11" />
+	</beans:bean>
+
+	<beans:bean id="authenticationTrustResolver"
+        class="org.springframework.security.authentication.AuthenticationTrustResolverImpl" />
+        
+        
+
+</beans:beans>
