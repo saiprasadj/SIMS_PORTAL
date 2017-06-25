@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:tls="http://www.mulesoft.org/schema/mule/tls" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:tracking="http://www.mulesoft.org/schema/mule/ee/tracking" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:spring="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/mule/ee/tracking/current/mule-tracking-ee.xsd
+http://www.mulesoft.org/schema/mule/tls http://www.mulesoft.org/schema/mule/tls/current/mule-tls.xsd">
+    <http:listener-config name="serverListener" host="0.0.0.0" port="${http.server.port}" doc:name="HTTP Listener Configuration" protocol="HTTPS">
+        <tls:context>
+            <tls:trust-store path="clientstore12.jks" password="password" type="jks"/>
+            <tls:key-store type="jks" path="serverStore.jks" keyPassword="password" password="password" alias="selfsigned"/>
+        </tls:context>
+    </http:listener-config>
+    <http:listener-config name="HTTPUnsecuredListener"
+         protocol="HTTPS" host="0.0.0.0" port="8081"
+         doc:name="HTTP Listener Configuration">
+         <tls:context>
+            <tls:trust-store path="serverStore.jks" password="password" type="jks"/>
+             <tls:key-store path="clientstore12.jks" password="password"
+                 keyPassword="password" />
+         </tls:context>
+     </http:listener-config>
+    <http:request-config name="HTTP_Request_Configuration" protocol="HTTPS" host="192.168.3.110" port="8095" doc:name="HTTP Request Configuration">
+        <tls:context>
+            <tls:trust-store   />
+            <tls:key-store alias="selfsigned" keyPassword="password" password="password" path="serverStore.jks" type="jks"/>
+        </tls:context>
+    </http:request-config>
+    <flow name="ssl-twowayflow">
+        <http:listener config-ref="HTTPUnsecuredListener" path="/unsecuredListener" doc:name="HTTP" allowedMethods="GET"/>
+        <http:request config-ref="HTTP_Request_Configuration" path="/server" method="GET" doc:name="HTTPS"/>
+    </flow>
+    <flow name="ssl-serverflow">
+        <http:listener config-ref="serverListener" path="/server" doc:name="HTTP" allowedMethods="GET"/>
+        <set-payload value="#['SSL Request Request =============== FROM SERVER']" mimeType="text/plain" doc:name="Set Payload"/>
+    </flow>
+</mule>
