@@ -17,53 +17,57 @@ import com.sims.portal.tankprocess.services.DailyTankRecordingService;
 @RequestMapping(value = TankProcessConstants.TILES_DAILY_TANK_RECORDING_CONTROLLER_MAIN_URL)
 public class DailyTankRecordingController {
 
-	@Autowired
-	private DailyTankRecordingService dailyTankRecordingService;
+    @Autowired
+    private DailyTankRecordingService dailyTankRecordingService;
 
-	@RequestMapping(method = RequestMethod.GET)
-	public ModelAndView showDailyTankRecordingForm() {
+    @RequestMapping(method = RequestMethod.GET)
+    public ModelAndView showDailyTankRecordingForm() {
 
-		ModelAndView modelAndView = new ModelAndView();
+        ModelAndView modelAndView = new ModelAndView();
 
-		findAllDailyTankRecordingForm(modelAndView);
-		modelAndView.addObject("dailyTankRecordingForm", new DailyTankRecordingForm());
-		modelAndView.addObject("dailyTankRecordingURL",
-				TankProcessConstants.TILES_DAILY_TANK_RECORDING_CONTROLLER_SAVE_URL);
-		modelAndView.setViewName(TankProcessConstants.TILES_DAILY_TANK_RECORDING_CONTROLLER_SHOW_MAIN_JSP);
+        findAllDailyTankRecordingForm(modelAndView);
+        modelAndView.addObject("dailyTankRecordingForm", new DailyTankRecordingForm());
+        modelAndView.addObject("dailyTankRecordingURL",
+                TankProcessConstants.TILES_DAILY_TANK_RECORDING_CONTROLLER_SAVE_URL);
+        modelAndView.setViewName(
+                TankProcessConstants.TILES_DAILY_TANK_RECORDING_CONTROLLER_SHOW_MAIN_JSP);
 
-		return modelAndView;
-	}
+        return modelAndView;
+    }
 
-	@RequestMapping(value = "/save", method = RequestMethod.POST)
-	public ModelAndView saveAccountMaster(
-			@ModelAttribute("dailyTankRecordingForm") DailyTankRecordingForm dailyTankRecordingForm) {
+    @RequestMapping(value = "/save", method = RequestMethod.POST)
+    public ModelAndView saveAccountMaster(
+            @ModelAttribute("dailyTankRecordingForm") DailyTankRecordingForm dailyTankRecordingForm) {
 
-		ModelAndView modelAndView = new ModelAndView();
-		dailyTankRecordingService.saveDailyTankRecordingForm(dailyTankRecordingForm);
-		setDefaultDataForDailyTankRecordingPage(modelAndView);
-		findAllDailyTankRecordingForm(modelAndView);
-		modelAndView.addObject("message", "Data Saved Successfully !!!");
+        ModelAndView modelAndView = new ModelAndView();
+        dailyTankRecordingService.saveDailyTankRecordingForm(dailyTankRecordingForm);
+        setDefaultDataForDailyTankRecordingPage(modelAndView);
+        findAllDailyTankRecordingForm(modelAndView);
+        modelAndView.addObject("message", "Data Saved Successfully !!!");
 
-		return modelAndView;
-	}
+        return modelAndView;
+    }
 
-	public ModelAndView findAllDailyTankRecordingForm(ModelAndView modelAndView) {
+    public ModelAndView findAllDailyTankRecordingForm(ModelAndView modelAndView) {
 
-		List<DailyTankRecordingForm> dailyTankRecordingFormListData = dailyTankRecordingService
-				.findDailyTankRecordingForm();
-		modelAndView.addObject("dailyTankRecordingFormListData", dailyTankRecordingFormListData);
+        List<DailyTankRecordingForm> dailyTankRecordingFormListData = dailyTankRecordingService
+                .findDailyTankRecordingForm();
+        modelAndView.addObject("dailyTankRecordingFormListData",
+                dailyTankRecordingFormListData);
 
-		return modelAndView;
-	}
+        return modelAndView;
+    }
 
-	private ModelAndView setDefaultDataForDailyTankRecordingPage(ModelAndView modelAndView) {
+    private ModelAndView setDefaultDataForDailyTankRecordingPage(
+            ModelAndView modelAndView) {
 
-		modelAndView.addObject("dailyTankRecordingForm", new DailyTankRecordingForm());
-		modelAndView.addObject("dailyTankRecordingURL",
-				TankProcessConstants.TILES_DAILY_TANK_RECORDING_CONTROLLER_SAVE_URL);
-		modelAndView.setViewName(TankProcessConstants.TILES_DAILY_TANK_RECORDING_CONTROLLER_SHOW_MAIN_JSP);
+        modelAndView.addObject("dailyTankRecordingForm", new DailyTankRecordingForm());
+        modelAndView.addObject("dailyTankRecordingURL",
+                TankProcessConstants.TILES_DAILY_TANK_RECORDING_CONTROLLER_SAVE_URL);
+        modelAndView.setViewName(
+                TankProcessConstants.TILES_DAILY_TANK_RECORDING_CONTROLLER_SHOW_MAIN_JSP);
 
-		return modelAndView;
-	}
+        return modelAndView;
+    }
 
 }

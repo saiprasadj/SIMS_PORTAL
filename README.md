@@ -30,4 +30,7 @@ public class Application {
     }
 }
 ```
+### Step 3
+Move WEB-INF folder from WebContent folder to src/main/webapp folder
+
 

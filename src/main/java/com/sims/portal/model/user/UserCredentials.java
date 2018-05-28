@@ -7,66 +7,27 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 @Entity
 @Table(name = "user_credential")
 public class UserCredentials implements Serializable {
-	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	private int userId;
-	private String password;
-	private int enable;
-	private String role;
-	private int changePassword;
-	
-	@Id
-	@Column(name = "user_id")
-	public int getUserId() {
-		return userId;
-	}
 
-	@Column(name = "role_name")
-	public String getRole() {
-		return role;
-	}
+    private static final long serialVersionUID = 1L;
 
-	public void setRole(String role) {
-		this.role = role;
-	}
+    @Id
+    @Column(name = "user_id")
+    private int userId;
 
-	
+    @Column(name = "role_name")
+    private String role = null;
 
-	@Column(name = "enable")
-	public int getEnable() {
-		return enable;
-	}
+    private String password = "welcome";
+    private int enable = 0;
 
-	public void setEnable(int enable) {
-		this.enable = enable;
-	}
-
-	public void setUserId(int userId) {
-		this.userId = userId;
-	}
-
-	@Column(name = "password")
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-	@Column(name = "ChangePassword")
-	public int getChangePassword() {
-		return changePassword;
-	}
-
-	public void setChangePassword(int changePassword) {
-		this.changePassword = changePassword;
-	}
-
-
+    @Column(name = "change_password")
+    private int changePassword;
 }

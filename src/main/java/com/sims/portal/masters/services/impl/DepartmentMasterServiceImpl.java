@@ -2,64 +2,68 @@ package com.sims.portal.masters.services.impl;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.sims.portal.masters.dao.DepartmentMasterDao;
+import com.sims.portal.masters.repository.DepartmentMasterFormRepository;
 import com.sims.portal.masters.services.DepartmentMasterService;
 import com.sims.portal.model.masters.beans.DepartmentMasterForm;
 
 @Service
 public class DepartmentMasterServiceImpl implements DepartmentMasterService {
 
-	@Autowired
-	private DepartmentMasterDao departmentMasterDao;
+    @Autowired
+    private DepartmentMasterFormRepository repository;
 
-	public DepartmentMasterForm saveDepartmentMaster(DepartmentMasterForm departmentMasterForm) {
+    @Override
+    public void saveDepartmentMaster(DepartmentMasterForm departmentMasterForm) {
+        repository.save(departmentMasterForm);
+    }
 
-		departmentMasterDao.saveDepartmentMaster(departmentMasterForm);
+    @Override
+    public List<DepartmentMasterForm> findDepartmentMasterDetails() {
+        return repository.findAll();
+    }
 
-		return departmentMasterForm;
+    @Override
+    public DepartmentMasterForm findDepartmentMasterDetailsByCode(
+            String departmentMasterCode) {
+        List<DepartmentMasterForm> departmentMasterForm = repository
+                .findByCode(departmentMasterCode);
+        if (!departmentMasterForm.isEmpty()) {
 
-	}
+            return departmentMasterForm.get(0);
+        }
 
-	@Override
-	public DepartmentMasterForm updateDepartmentMaster(DepartmentMasterForm departmentMasterForm) {
+        return new DepartmentMasterForm();
+    }
 
-		departmentMasterDao.updateDepartmentMaster(departmentMasterForm);
+    @Override
+    public void updateDepartmentMaster(DepartmentMasterForm departmentMasterForm) {
+        repository.save(departmentMasterForm);
 
-		return departmentMasterForm;
-	}
+    }
 
-	@Override
-	public Boolean deleteDepartmentMaster(DepartmentMasterForm departmentMasterForm) {
+    @Override
+    public void deleteDepartmentMaster(DepartmentMasterForm departmentMasterForm) {
+        repository.delete(departmentMasterForm);
 
-		return departmentMasterDao.deleteDepartmentMaster(departmentMasterForm);
-	}
+    }
 
-	@Override
-	public List<DepartmentMasterForm> findDepartmentMasterDetails() {
+    @Override
+    public Map<String, String> getDepartmentCodes() {
 
-		return departmentMasterDao.findDepartmentMasterDetails();
-	}
+        List<DepartmentMasterForm> listOfDepartments = findDepartmentMasterDetails();
 
-	@Override
-	public DepartmentMasterForm findDepartmentMasterDetailsByCode(String code) {
+        Map<String, String> departmentCodes = new HashMap<>();
 
-		return departmentMasterDao.findDepartmentMasterDetailsByCode(code);
-	}
+        for (DepartmentMasterForm departmentMasterForm : listOfDepartments) {
+            departmentCodes.put(departmentMasterForm.getCode(),
+                    departmentMasterForm.getCode());
+        }
+        return departmentCodes;
+    }
 
-	@Override
-	public HashMap<String, String> getDepartmentCodes() {
-
-		List<DepartmentMasterForm> listOfDepartments = departmentMasterDao.findDepartmentMasterDetails();
-
-		HashMap<String, String> departmentCodes = new HashMap<String, String>();
-
-		for (DepartmentMasterForm departmentMasterForm : listOfDepartments) {
-			departmentCodes.put(departmentMasterForm.getCode(), departmentMasterForm.getCode());
-		}
-		return departmentCodes;
-	}
 }

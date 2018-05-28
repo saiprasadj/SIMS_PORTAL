@@ -2,6 +2,7 @@ package com.sims.portal.masters.controllers;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,6 +15,9 @@ import com.sims.portal.masters.constants.MastersPageConstants;
 import com.sims.portal.masters.services.SectionMasterService;
 import com.sims.portal.model.masters.beans.SectionMasterForm;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @RequestMapping(value = "/master/section")
 @Controller
 public class SectionMasterController {
@@ -37,7 +41,7 @@ public class SectionMasterController {
 	public ModelAndView saveSectionMaster(@ModelAttribute("sectionMasterForm") SectionMasterForm sectionMasterForm) {
 
 		ModelAndView modelAndView = new ModelAndView();
-		System.out.println("SectionMasterForm " + sectionMasterForm.getName());
+		log.info("SectionMasterForm " + sectionMasterForm.getName());
 		sectionMasterService.saveSectionMaster(sectionMasterForm);
 		setDefaultDataForSectionMasterPage(modelAndView);
 		findSectionMasterDetails(modelAndView);
@@ -57,7 +61,7 @@ public class SectionMasterController {
 	@RequestMapping(value = "/edit/{code}", method = RequestMethod.GET)
 	public ModelAndView findSectionMasterDetailsByCode(@PathVariable(name = "code") String sectionMasterCode) {
 
-		System.out.println("Code Received &&&&&&&&&&&&&&  " + sectionMasterCode);
+		log.info("Code Received &&&&&&&&&&&&&&  " + sectionMasterCode);
 		ModelAndView modelAndView = new ModelAndView();
 		SectionMasterForm sectionMasterForm = sectionMasterService.findSectionMasterDetailsByCode(sectionMasterCode);
 		modelAndView.addObject("sectionMasterForm", sectionMasterForm);
@@ -73,9 +77,9 @@ public class SectionMasterController {
 	public ModelAndView updateSectionMaster(@PathVariable(name = "id") Long id,
 			@ModelAttribute("sectionMasterForm") SectionMasterForm sectionMasterForm) {
 
-		System.out.println("UPDATING ID =========== " + id);
+		log.info("UPDATING ID =========== " + id);
 		ModelAndView modelAndView = new ModelAndView();
-		System.out.println("UPDATE CODE === " + id);
+		log.info("UPDATE CODE === " + id);
 		sectionMasterForm.setId(id);
 		sectionMasterService.updateSectionMaster(sectionMasterForm);
 		setDefaultDataForSectionMasterPage(modelAndView);
@@ -91,7 +95,7 @@ public class SectionMasterController {
 	public ModelAndView deleteSectionMasterDetailsByCode(@PathVariable(name = "id") Long id,
 			@ModelAttribute("sectionMasterForm") SectionMasterForm sectionMasterForm) {
 
-		System.out.println("DELETING ID =========== " + id);
+		log.info("DELETING ID =========== " + id);
 		ModelAndView modelAndView = new ModelAndView();
 		sectionMasterForm.setId(id);
 		sectionMasterService.deleteSectionMaster(sectionMasterForm);
@@ -105,7 +109,7 @@ public class SectionMasterController {
 
 		modelAndView.addObject("sectionMasterForm", new SectionMasterForm());
 
-		HashMap<String, String> typesOfCustomersMap = new HashMap<String, String>();
+		Map<String, String> typesOfCustomersMap = new HashMap<>();
 
 		typesOfCustomersMap.put("customertype1", "Customer Type 1");
 		typesOfCustomersMap.put("customertype2", "Customer Type 2");

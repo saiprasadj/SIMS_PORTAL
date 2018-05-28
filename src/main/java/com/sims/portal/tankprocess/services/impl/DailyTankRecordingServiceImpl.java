@@ -6,28 +6,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.sims.portal.models.tankprocess.beans.DailyTankRecordingForm;
-import com.sims.portal.tankprocess.dao.DailyTankRecordingDao;
+import com.sims.portal.tankprocess.repository.DailyTankRecordingFormRepository;
 import com.sims.portal.tankprocess.services.DailyTankRecordingService;
 
 @Service
 public class DailyTankRecordingServiceImpl implements DailyTankRecordingService {
+    
+    @Autowired
+    private DailyTankRecordingFormRepository repository;
 
-	@Autowired
-	private DailyTankRecordingDao dailyTankRecordingDao;
+    @Override
+    public void saveDailyTankRecordingForm(
+            DailyTankRecordingForm dailyTankRecordingForm) {
+        repository.save(dailyTankRecordingForm);
+    }
 
-	@Override
-	public DailyTankRecordingForm saveDailyTankRecordingForm(DailyTankRecordingForm dailyTankRecordingForm) {
-
-		dailyTankRecordingDao.saveDailyTankRecording(dailyTankRecordingForm);
-		return dailyTankRecordingForm;
-	}
-
-	@Override
-	public List<DailyTankRecordingForm> findDailyTankRecordingForm() {
-
-		List<DailyTankRecordingForm> dailyTankRecordingFormListData = dailyTankRecordingDao.findDailyTankRecordingForm();
-
-		return dailyTankRecordingFormListData;
-	}
+    @Override
+    public List<DailyTankRecordingForm> findDailyTankRecordingForm() {
+        return repository.findAll();
+    }
 
 }

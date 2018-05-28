@@ -50,3 +50,4 @@ catalog/
 **/*.mflow
 /.classpath
 /.project
+/.springBeans

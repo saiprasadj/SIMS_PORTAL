@@ -6,14 +6,14 @@ import com.sims.portal.model.masters.beans.ProductMasterForm;
 
 public interface ProductMasterService {
 
-	public ProductMasterForm saveProductMaster(ProductMasterForm productMasterForm);
+    void saveProductMaster(ProductMasterForm productMasterForm);
 
-	public ProductMasterForm updateProductMaster(ProductMasterForm productMasterForm);
+    List<ProductMasterForm> findProductMasterDetails();
 
-	public Boolean deleteProductMaster(ProductMasterForm productMasterForm);
+    ProductMasterForm findProductMasterDetailsByCode(String productMasterCode);
 
-	public List<ProductMasterForm> findProductMasterDetails();
+    void updateProductMaster(ProductMasterForm productMasterForm);
 
-	public ProductMasterForm findProductMasterDetailsByCode(String code);
+    void deleteProductMaster(ProductMasterForm productMasterForm);
 
 }

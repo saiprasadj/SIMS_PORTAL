@@ -1,7 +1,7 @@
 package com.sims.portal.masters.controllers;
 
-import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,107 +16,115 @@ import com.sims.portal.masters.services.DepartmentMasterService;
 import com.sims.portal.masters.services.EmployeeMasterService;
 import com.sims.portal.model.masters.beans.EmployeeMasterForm;
 
+import lombok.extern.slf4j.Slf4j;
+
 @RequestMapping(value = "/master/employee")
 @Controller
+@Slf4j
 public class EmployeeMasterController {
 
-	@Autowired
-	private EmployeeMasterService employeeMasterService;
+    @Autowired
+    private EmployeeMasterService employeeMasterService;
 
-	@Autowired
-	private DepartmentMasterService departmentMasterService;
+    @Autowired
+    private DepartmentMasterService departmentMasterService;
 
-	@RequestMapping(method = RequestMethod.GET)
-	public ModelAndView showEmployeeMasterPage() {
+    @RequestMapping(method = RequestMethod.GET)
+    public ModelAndView showEmployeeMasterPage() {
 
-		ModelAndView modelAndView = new ModelAndView();
-		setDefaultDataForEmployeeMasterPage(modelAndView);
+        ModelAndView modelAndView = new ModelAndView();
+        setDefaultDataForEmployeeMasterPage(modelAndView);
 
-		// LIST PAGE DATA
-		findEmployeeMasterDetails(modelAndView);
+        // LIST PAGE DATA
+        findEmployeeMasterDetails(modelAndView);
 
-		return modelAndView;
-	}
+        return modelAndView;
+    }
 
-	@RequestMapping(value = "/save", method = RequestMethod.POST)
-	public ModelAndView saveEmployeeMaster(
-			@ModelAttribute("employeeMasterForm") EmployeeMasterForm employeeMasterForm) {
+    @RequestMapping(value = "/save", method = RequestMethod.POST)
+    public ModelAndView saveEmployeeMaster(
+            @ModelAttribute("employeeMasterForm") EmployeeMasterForm employeeMasterForm) {
 
-		ModelAndView modelAndView = new ModelAndView();
-		System.out.println("EmployeeMasterForm " + employeeMasterForm.getName());
-		employeeMasterService.saveEmployeeMaster(employeeMasterForm);
-		setDefaultDataForEmployeeMasterPage(modelAndView);
-		findEmployeeMasterDetails(modelAndView);
-		modelAndView.addObject("message", "Data Saved Successfully !!!");
+        ModelAndView modelAndView = new ModelAndView();
+        log.info("EmployeeMasterForm " + employeeMasterForm.getName());
+        employeeMasterService.saveEmployeeMaster(employeeMasterForm);
+        setDefaultDataForEmployeeMasterPage(modelAndView);
+        findEmployeeMasterDetails(modelAndView);
+        modelAndView.addObject("message", "Data Saved Successfully !!!");
 
-		return modelAndView;
-	}
+        return modelAndView;
+    }
 
-	public ModelAndView findEmployeeMasterDetails(ModelAndView modelAndView) {
+    public ModelAndView findEmployeeMasterDetails(ModelAndView modelAndView) {
 
-		List<EmployeeMasterForm> employeeMasterFormList = employeeMasterService.findEmployeeMasterDetails();
-		modelAndView.addObject("employeeMasterFormListData", employeeMasterFormList);
+        List<EmployeeMasterForm> employeeMasterFormList = employeeMasterService
+                .findEmployeeMasterDetails();
+        modelAndView.addObject("employeeMasterFormListData", employeeMasterFormList);
 
-		return modelAndView;
-	}
+        return modelAndView;
+    }
 
-	@RequestMapping(value = "/edit/{code}", method = RequestMethod.GET)
-	public ModelAndView findEmployeeMasterDetailsByCode(@PathVariable(name = "code") String employeeMasterCode) {
+    @RequestMapping(value = "/edit/{code}", method = RequestMethod.GET)
+    public ModelAndView findEmployeeMasterDetailsByCode(
+            @PathVariable(name = "code") String employeeMasterCode) {
 
-		System.out.println("Code Received &&&&&&&&&&&&&&  " + employeeMasterCode);
-		ModelAndView modelAndView = new ModelAndView();
-		EmployeeMasterForm employeeMasterForm = employeeMasterService
-				.findEmployeeMasterDetailsByCode(employeeMasterCode);
-		modelAndView.addObject("employeeMasterForm", employeeMasterForm);
-		findEmployeeMasterDetails(modelAndView);
-		modelAndView.setViewName(MastersPageConstants.EMPLOYEE_MASTER_MAIN_PAGE);
-		modelAndView.addObject("tabToShow", "details");
-		modelAndView.addObject("employeeMasterURL", "employee/update/" + employeeMasterForm.getId());
+        log.info("Code Received &&&&&&&&&&&&&&  " + employeeMasterCode);
+        ModelAndView modelAndView = new ModelAndView();
+        EmployeeMasterForm employeeMasterForm = employeeMasterService
+                .findEmployeeMasterDetailsByCode(employeeMasterCode);
+        modelAndView.addObject("employeeMasterForm", employeeMasterForm);
+        findEmployeeMasterDetails(modelAndView);
+        modelAndView.setViewName(MastersPageConstants.EMPLOYEE_MASTER_MAIN_PAGE);
+        modelAndView.addObject("tabToShow", "details");
+        modelAndView.addObject("employeeMasterURL",
+                "employee/update/" + employeeMasterForm.getId());
 
-		return modelAndView;
-	}
+        return modelAndView;
+    }
 
-	@RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
-	public ModelAndView updateEmployeeMaster(@PathVariable(name = "id") Long id,
-			@ModelAttribute("employeeMasterForm") EmployeeMasterForm employeeMasterForm) {
+    @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
+    public ModelAndView updateEmployeeMaster(@PathVariable(name = "id") Long id,
+            @ModelAttribute("employeeMasterForm") EmployeeMasterForm employeeMasterForm) {
 
-		System.out.println("UPDATING ID =========== " + id);
-		ModelAndView modelAndView = new ModelAndView();
-		System.out.println("UPDATE CODE === " + id);
-		employeeMasterForm.setId(id);
-		employeeMasterService.updateEmployeeMaster(employeeMasterForm);
-		setDefaultDataForEmployeeMasterPage(modelAndView);
-		findEmployeeMasterDetails(modelAndView);
-		modelAndView.addObject("message", "Data Updated Successfully !!!");
+        log.info("UPDATING ID =========== " + id);
+        ModelAndView modelAndView = new ModelAndView();
+        log.info("UPDATE CODE === " + id);
+        employeeMasterForm.setId(id);
+        employeeMasterService.updateEmployeeMaster(employeeMasterForm);
+        setDefaultDataForEmployeeMasterPage(modelAndView);
+        findEmployeeMasterDetails(modelAndView);
+        modelAndView.addObject("message", "Data Updated Successfully !!!");
 
-		// modelAndView.setViewName("redirect:/master/employee");
+        // modelAndView.setViewName("redirect:/master/employee");
 
-		return modelAndView;
-	}
+        return modelAndView;
+    }
 
-	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
-	public ModelAndView deleteEmployeeMasterDetailsByCode(@PathVariable(name = "id") Long id,
-			@ModelAttribute("employeeMasterForm") EmployeeMasterForm employeeMasterForm) {
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
+    public ModelAndView deleteEmployeeMasterDetailsByCode(
+            @PathVariable(name = "id") Long id,
+            @ModelAttribute("employeeMasterForm") EmployeeMasterForm employeeMasterForm) {
 
-		System.out.println("DELETING ID =========== " + id);
-		ModelAndView modelAndView = new ModelAndView();
-		employeeMasterForm.setId(id);
-		employeeMasterService.deleteEmployeeMaster(employeeMasterForm);
-		setDefaultDataForEmployeeMasterPage(modelAndView);
-		findEmployeeMasterDetails(modelAndView);
-		modelAndView.addObject("message", "Data Deleted Successfully !!!");
-		return modelAndView;
-	}
+        log.info("DELETING ID =========== " + id);
+        ModelAndView modelAndView = new ModelAndView();
+        employeeMasterForm.setId(id);
+        employeeMasterService.deleteEmployeeMaster(employeeMasterForm);
+        setDefaultDataForEmployeeMasterPage(modelAndView);
+        findEmployeeMasterDetails(modelAndView);
+        modelAndView.addObject("message", "Data Deleted Successfully !!!");
+        return modelAndView;
+    }
 
-	private ModelAndView setDefaultDataForEmployeeMasterPage(ModelAndView modelAndView) {
+    private ModelAndView setDefaultDataForEmployeeMasterPage(ModelAndView modelAndView) {
 
-		modelAndView.addObject("employeeMasterForm", new EmployeeMasterForm());
+        modelAndView.addObject("employeeMasterForm", new EmployeeMasterForm());
 
-		HashMap<String, String> departmentCodesMap = departmentMasterService.getDepartmentCodes();
-		modelAndView.addObject("departmentCodesMap", departmentCodesMap);
-		modelAndView.addObject("employeeMasterURL", "employee/save");
-		modelAndView.setViewName(MastersPageConstants.EMPLOYEE_MASTER_MAIN_PAGE);
-		return modelAndView;
-	}
+        Map<String, String> departmentCodesMap = departmentMasterService
+                .getDepartmentCodes();
+        modelAndView.addObject("departmentCodesMap", departmentCodesMap);
+        modelAndView.addObject("employeeMasterURL", "employee/save");
+        modelAndView.setViewName(MastersPageConstants.EMPLOYEE_MASTER_MAIN_PAGE);
+        return modelAndView;
+    }
 
 }

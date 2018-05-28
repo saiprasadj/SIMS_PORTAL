@@ -5,47 +5,45 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.sims.portal.masters.dao.WareHouseMasterDao;
+import com.sims.portal.masters.repository.WareHouseMasterFormRepository;
 import com.sims.portal.masters.services.WareHouseMasterService;
 import com.sims.portal.model.masters.beans.WareHouseMasterForm;
 
 @Service
 public class WareHouseMasterServiceImpl implements WareHouseMasterService {
 
-	@Autowired
-	private WareHouseMasterDao wareHouseMasterDao;
+    @Autowired
+    private WareHouseMasterFormRepository repository;
 
-	public WareHouseMasterForm saveWareHouseMaster(WareHouseMasterForm wareHouseMasterForm) {
+    @Override
+    public void saveWareHouseMaster(WareHouseMasterForm wareHouseMasterForm) {
+        repository.save(wareHouseMasterForm);
+    }
 
-		wareHouseMasterDao.saveWareHouseMaster(wareHouseMasterForm);
+    @Override
+    public List<WareHouseMasterForm> findWareHouseMasterDetails() {
+        return repository.findAll();
+    }
 
-		return wareHouseMasterForm;
+    @Override
+    public WareHouseMasterForm findWareHouseMasterDetailsByCode(
+            String wareHouseMasterCode) {
+        List<WareHouseMasterForm> masterForms = repository
+                .findByCode(wareHouseMasterCode);
+        if (!masterForms.isEmpty()) {
+            return masterForms.get(0);
+        }
+        return new WareHouseMasterForm();
+    }
 
-	}
+    @Override
+    public void updateWareHouseMaster(WareHouseMasterForm wareHouseMasterForm) {
+        repository.save(wareHouseMasterForm);
+    }
 
-	@Override
-	public WareHouseMasterForm updateWareHouseMaster(WareHouseMasterForm wareHouseMasterForm) {
+    @Override
+    public void deleteWareHouseMaster(WareHouseMasterForm wareHouseMasterForm) {
+        repository.delete(wareHouseMasterForm);
+    }
 
-		wareHouseMasterDao.updateWareHouseMaster(wareHouseMasterForm);
-
-		return wareHouseMasterForm;
-	}
-
-	@Override
-	public Boolean deleteWareHouseMaster(WareHouseMasterForm wareHouseMasterForm) {
-
-		return wareHouseMasterDao.deleteWareHouseMaster(wareHouseMasterForm);
-	}
-
-	@Override
-	public List<WareHouseMasterForm> findWareHouseMasterDetails() {
-
-		return wareHouseMasterDao.findWareHouseMasterDetails();
-	}
-
-	@Override
-	public WareHouseMasterForm findWareHouseMasterDetailsByCode(String code) {
-
-		return wareHouseMasterDao.findWareHouseMasterDetailsByCode(code);
-	}
 }

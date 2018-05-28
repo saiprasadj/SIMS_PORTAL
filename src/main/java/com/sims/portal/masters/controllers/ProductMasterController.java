@@ -2,6 +2,7 @@ package com.sims.portal.masters.controllers;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,6 +15,9 @@ import com.sims.portal.masters.constants.MastersPageConstants;
 import com.sims.portal.masters.services.ProductMasterService;
 import com.sims.portal.model.masters.beans.ProductMasterForm;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @RequestMapping(value = "/master/product")
 @Controller
 public class ProductMasterController {
@@ -37,7 +41,7 @@ public class ProductMasterController {
 	public ModelAndView saveProductMaster(@ModelAttribute("productMasterForm") ProductMasterForm productMasterForm) {
 
 		ModelAndView modelAndView = new ModelAndView();
-		System.out.println("ProductMasterForm " + productMasterForm.getName());
+		log.info("ProductMasterForm " + productMasterForm.getName());
 		productMasterService.saveProductMaster(productMasterForm);
 		setDefaultDataForProductMasterPage(modelAndView);
 		findProductMasterDetails(modelAndView);
@@ -57,7 +61,7 @@ public class ProductMasterController {
 	@RequestMapping(value = "/edit/{code}", method = RequestMethod.GET)
 	public ModelAndView findProductMasterDetailsByCode(@PathVariable(name = "code") String productMasterCode) {
 
-		System.out.println("Code Received &&&&&&&&&&&&&&  " + productMasterCode);
+		log.info("Code Received &&&&&&&&&&&&&&  " + productMasterCode);
 		ModelAndView modelAndView = new ModelAndView();
 		ProductMasterForm productMasterForm = productMasterService.findProductMasterDetailsByCode(productMasterCode);
 		modelAndView.addObject("productMasterForm", productMasterForm);
@@ -73,9 +77,9 @@ public class ProductMasterController {
 	public ModelAndView updateProductMaster(@PathVariable(name = "id") Long id,
 			@ModelAttribute("productMasterForm") ProductMasterForm productMasterForm) {
 
-		System.out.println("UPDATING ID =========== " + id);
+		log.info("UPDATING ID =========== " + id);
 		ModelAndView modelAndView = new ModelAndView();
-		System.out.println("UPDATE CODE === " + id);
+		log.info("UPDATE CODE === " + id);
 		productMasterForm.setId(id);
 		productMasterService.updateProductMaster(productMasterForm);
 		setDefaultDataForProductMasterPage(modelAndView);
@@ -91,7 +95,7 @@ public class ProductMasterController {
 	public ModelAndView deleteProductMasterDetailsByCode(@PathVariable(name = "id") Long id,
 			@ModelAttribute("productMasterForm") ProductMasterForm productMasterForm) {
 
-		System.out.println("DELETING ID =========== " + id);
+		log.info("DELETING ID =========== " + id);
 		ModelAndView modelAndView = new ModelAndView();
 		productMasterForm.setId(id);
 		productMasterService.deleteProductMaster(productMasterForm);
@@ -105,7 +109,7 @@ public class ProductMasterController {
 
 		modelAndView.addObject("productMasterForm", new ProductMasterForm());
 
-		HashMap<String, String> typesOfCustomersMap = new HashMap<String, String>();
+		Map<String, String> typesOfCustomersMap = new HashMap<>();
 
 		typesOfCustomersMap.put("customertype1", "Customer Type 1");
 		typesOfCustomersMap.put("customertype2", "Customer Type 2");

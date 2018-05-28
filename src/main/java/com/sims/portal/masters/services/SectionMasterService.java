@@ -6,14 +6,14 @@ import com.sims.portal.model.masters.beans.SectionMasterForm;
 
 public interface SectionMasterService {
 
-	public SectionMasterForm saveSectionMaster(SectionMasterForm sectionMasterForm);
+    void saveSectionMaster(SectionMasterForm sectionMasterForm);
 
-	public SectionMasterForm updateSectionMaster(SectionMasterForm sectionMasterForm);
+    List<SectionMasterForm> findSectionMasterDetails();
 
-	public Boolean deleteSectionMaster(SectionMasterForm sectionMasterForm);
+    SectionMasterForm findSectionMasterDetailsByCode(String sectionMasterCode);
 
-	public List<SectionMasterForm> findSectionMasterDetails();
+    void updateSectionMaster(SectionMasterForm sectionMasterForm);
 
-	public SectionMasterForm findSectionMasterDetailsByCode(String code);
+    void deleteSectionMaster(SectionMasterForm sectionMasterForm);
 
 }

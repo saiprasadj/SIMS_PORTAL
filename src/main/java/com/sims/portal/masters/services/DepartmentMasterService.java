@@ -1,22 +1,22 @@
 package com.sims.portal.masters.services;
 
-import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.sims.portal.model.masters.beans.DepartmentMasterForm;
 
 public interface DepartmentMasterService {
 
-	public DepartmentMasterForm saveDepartmentMaster(DepartmentMasterForm departmentMasterForm);
+    void saveDepartmentMaster(DepartmentMasterForm departmentMasterForm);
 
-	public DepartmentMasterForm updateDepartmentMaster(DepartmentMasterForm departmentMasterForm);
+    List<DepartmentMasterForm> findDepartmentMasterDetails();
 
-	public Boolean deleteDepartmentMaster(DepartmentMasterForm departmentMasterForm);
+    DepartmentMasterForm findDepartmentMasterDetailsByCode(String departmentMasterCode);
 
-	public List<DepartmentMasterForm> findDepartmentMasterDetails();
+    void updateDepartmentMaster(DepartmentMasterForm departmentMasterForm);
 
-	public DepartmentMasterForm findDepartmentMasterDetailsByCode(String code);
-	
-	public HashMap<String,String> getDepartmentCodes();
+    void deleteDepartmentMaster(DepartmentMasterForm departmentMasterForm);
+
+    Map<String, String> getDepartmentCodes();
 
 }

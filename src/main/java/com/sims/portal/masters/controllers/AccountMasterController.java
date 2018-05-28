@@ -2,6 +2,7 @@ package com.sims.portal.masters.controllers;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,109 +15,120 @@ import com.sims.portal.masters.constants.MastersPageConstants;
 import com.sims.portal.masters.services.AccountMasterService;
 import com.sims.portal.model.masters.beans.AccountMasterForm;
 
+import lombok.extern.slf4j.Slf4j;
+
 @RequestMapping(value = "/master/account")
 @Controller
+@Slf4j
 public class AccountMasterController {
 
-	@Autowired
-	private AccountMasterService accountMasterService;
+    private static final String MESSAGE = "message";
 
-	@RequestMapping(method = RequestMethod.GET)
-	public ModelAndView showAccountMasterPage() {
+    @Autowired
+    private AccountMasterService accountMasterService;
 
-		ModelAndView modelAndView = new ModelAndView();
-		setDefaultDataForAccountMasterPage(modelAndView);
+    @RequestMapping(method = RequestMethod.GET)
+    public ModelAndView showAccountMasterPage() {
 
-		// LIST PAGE DATA
-		findAccountMasterDetails(modelAndView);
+        ModelAndView modelAndView = new ModelAndView();
+        setDefaultDataForAccountMasterPage(modelAndView);
 
-		return modelAndView;
-	}
+        // LIST PAGE DATA
+        findAccountMasterDetails(modelAndView);
 
-	@RequestMapping(value = "/save", method = RequestMethod.POST)
-	public ModelAndView saveAccountMaster(@ModelAttribute("accountMasterForm") AccountMasterForm accountMasterForm) {
+        return modelAndView;
+    }
 
-		ModelAndView modelAndView = new ModelAndView();
-		System.out.println("AccountMasterForm " + accountMasterForm.getName());
-		accountMasterService.saveAccountMaster(accountMasterForm);
-		setDefaultDataForAccountMasterPage(modelAndView);
-		findAccountMasterDetails(modelAndView);
-		modelAndView.addObject("message", "Data Saved Successfully !!!");
+    @RequestMapping(value = "/save", method = RequestMethod.POST)
+    public ModelAndView saveAccountMaster(
+            @ModelAttribute("accountMasterForm") AccountMasterForm accountMasterForm) {
 
-		return modelAndView;
-	}
+        ModelAndView modelAndView = new ModelAndView();
+        log.info("AccountMasterForm " + accountMasterForm.getName());
+        accountMasterService.saveAccountMaster(accountMasterForm);
+        setDefaultDataForAccountMasterPage(modelAndView);
+        findAccountMasterDetails(modelAndView);
+        modelAndView.addObject(MESSAGE, "Data Saved Successfully !!!");
 
-	public ModelAndView findAccountMasterDetails(ModelAndView modelAndView) {
+        return modelAndView;
+    }
 
-		List<AccountMasterForm> accountMasterFormList = accountMasterService.findAccountMasterDetails();
-		modelAndView.addObject("accountMasterFormListData", accountMasterFormList);
+    public ModelAndView findAccountMasterDetails(ModelAndView modelAndView) {
 
-		return modelAndView;
-	}
+        List<AccountMasterForm> accountMasterFormList = accountMasterService
+                .findAccountMasterDetails();
+        modelAndView.addObject("accountMasterFormListData", accountMasterFormList);
 
-	@RequestMapping(value = "/edit/{code}", method = RequestMethod.GET)
-	public ModelAndView findAccountMasterDetailsByCode(@PathVariable(name = "code") String accountMasterCode) {
+        return modelAndView;
+    }
 
-		System.out.println("Code Received &&&&&&&&&&&&&&  " + accountMasterCode);
-		ModelAndView modelAndView = new ModelAndView();
-		AccountMasterForm accountMasterForm = accountMasterService.findAccountMasterDetailsByCode(accountMasterCode);
-		modelAndView.addObject("accountMasterForm", accountMasterForm);
-		findAccountMasterDetails(modelAndView);
-		modelAndView.setViewName(MastersPageConstants.ACCOUNT_MASTER_MAIN_PAGE);
-		modelAndView.addObject("tabToShow", "details");
-		modelAndView.addObject("accountMasterURL", "account/update/" + accountMasterForm.getId());
+    @RequestMapping(value = "/edit/{code}", method = RequestMethod.GET)
+    public ModelAndView findAccountMasterDetailsByCode(
+            @PathVariable(name = "code") String accountMasterCode) {
 
-		return modelAndView;
-	}
+        log.info("Code Received &&&&&&&&&&&&&&  " + accountMasterCode);
+        ModelAndView modelAndView = new ModelAndView();
+        AccountMasterForm accountMasterForm = accountMasterService
+                .findAccountMasterDetailsByCode(accountMasterCode);
+        modelAndView.addObject("accountMasterForm", accountMasterForm);
+        findAccountMasterDetails(modelAndView);
+        modelAndView.setViewName(MastersPageConstants.ACCOUNT_MASTER_MAIN_PAGE);
+        modelAndView.addObject("tabToShow", "details");
+        modelAndView.addObject("accountMasterURL",
+                "account/update/" + accountMasterForm.getId());
 
-	@RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
-	public ModelAndView updateAccountMaster(@PathVariable(name = "id") Long id,
-			@ModelAttribute("accountMasterForm") AccountMasterForm accountMasterForm) {
+        return modelAndView;
+    }
 
-		System.out.println("UPDATING ID =========== " + id);
-		ModelAndView modelAndView = new ModelAndView();
-		System.out.println("UPDATE CODE === " + id);
-		accountMasterForm.setId(id);
-		accountMasterService.updateAccountMaster(accountMasterForm);
-		setDefaultDataForAccountMasterPage(modelAndView);
-		findAccountMasterDetails(modelAndView);
-		modelAndView.addObject("message", "Data Updated Successfully !!!");
-		
-		//modelAndView.setViewName("redirect:/master/account");
+    @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
+    public ModelAndView updateAccountMaster(@PathVariable(name = "id") Long id,
+            @ModelAttribute("accountMasterForm") AccountMasterForm accountMasterForm) {
 
-		return modelAndView;
-	}
+        log.info("UPDATING ID =========== " + id);
+        ModelAndView modelAndView = new ModelAndView();
+        log.info("UPDATE CODE === " + id);
+        accountMasterForm.setId(id);
+        accountMasterService.updateAccountMaster(accountMasterForm);
+        setDefaultDataForAccountMasterPage(modelAndView);
+        findAccountMasterDetails(modelAndView);
+        modelAndView.addObject(MESSAGE, "Data Updated Successfully !!!");
 
-	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
-	public ModelAndView deleteAccountMasterDetailsByCode(@PathVariable(name = "id") Long id,
-			@ModelAttribute("accountMasterForm") AccountMasterForm accountMasterForm) {
+        // modelAndView.setViewName("redirect:/master/account");
 
-		System.out.println("DELETING ID =========== " + id);
-		ModelAndView modelAndView = new ModelAndView();
-		accountMasterForm.setId(id);
-		accountMasterService.deleteAccountMaster(accountMasterForm);
-		setDefaultDataForAccountMasterPage(modelAndView);
-		findAccountMasterDetails(modelAndView);
-		modelAndView.addObject("message", "Data Deleted Successfully !!!");
-		return modelAndView;
-	}
+        return modelAndView;
+    }
 
-	private ModelAndView setDefaultDataForAccountMasterPage(ModelAndView modelAndView) {
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
+    public ModelAndView deleteAccountMasterDetailsByCode(
+            @PathVariable(name = "id") Long id,
+            @ModelAttribute("accountMasterForm") AccountMasterForm accountMasterForm) {
 
-		modelAndView.addObject("accountMasterForm", new AccountMasterForm());
+        log.info("DELETING ID =========== " + id);
+        ModelAndView modelAndView = new ModelAndView();
+        accountMasterForm.setId(id);
+        accountMasterService.deleteAccountMaster(accountMasterForm);
+        setDefaultDataForAccountMasterPage(modelAndView);
+        findAccountMasterDetails(modelAndView);
+        modelAndView.addObject(MESSAGE, "Data Deleted Successfully !!!");
+        return modelAndView;
+    }
 
-		HashMap<String, String> typesOfCustomersMap = new HashMap<String, String>();
+    private ModelAndView setDefaultDataForAccountMasterPage(ModelAndView modelAndView) {
 
-		typesOfCustomersMap.put("customertype1", "Customer Type 1");
-		typesOfCustomersMap.put("customertype2", "Customer Type 2");
-		typesOfCustomersMap.put("customertype3", "Customer Type 3");
-		typesOfCustomersMap.put("customertype4", "Customer Type 4");
-		typesOfCustomersMap.put("customertype5", "Customer Type 5");
+        modelAndView.addObject("accountMasterForm", new AccountMasterForm());
 
-		modelAndView.addObject("typesOfCustomersMap", typesOfCustomersMap);
-		modelAndView.addObject("accountMasterURL", "account/save");
-		modelAndView.setViewName(MastersPageConstants.ACCOUNT_MASTER_MAIN_PAGE);
-		return modelAndView;
-	}
+        Map<String, String> typesOfCustomersMap = new HashMap<>();
+
+        typesOfCustomersMap.put("customertype1", "Customer Type 1");
+        typesOfCustomersMap.put("customertype2", "Customer Type 2");
+        typesOfCustomersMap.put("customertype3", "Customer Type 3");
+        typesOfCustomersMap.put("customertype4", "Customer Type 4");
+        typesOfCustomersMap.put("customertype5", "Customer Type 5");
+
+        modelAndView.addObject("typesOfCustomersMap", typesOfCustomersMap);
+        modelAndView.addObject("accountMasterURL", "account/save");
+        modelAndView.setViewName(MastersPageConstants.ACCOUNT_MASTER_MAIN_PAGE);
+        return modelAndView;
+    }
 
 }
