@@ -16,14 +16,15 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sims.portal.beans.ErrorMessage;
-import com.sims.portal.beans.ValidationResponse;
 import com.sims.portal.beans.LoginForm;
+import com.sims.portal.beans.ValidationResponse;
 import com.sims.portal.security.services.SecurityContextService;
 
 @Controller
@@ -41,7 +42,7 @@ public class LoginPageController {
     @Autowired
     private SecurityContextService securityContextService;
 
-    @RequestMapping(method = RequestMethod.GET)
+    @GetMapping
     public String loginPage(ModelMap model, String error, String logout, Locale locale) {
 
         logger.debug("From Login Page Method");

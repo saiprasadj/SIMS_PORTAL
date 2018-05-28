@@ -29,7 +29,7 @@
 						<c:forEach items="${dailyTankRecordingFormListData}"
 							var="dailyTankRecordingFormListObj">
 							<tr>
-								<td>${dailyTankRecordingFormListObj.dailytankrecording_id}</td>
+								<td>${dailyTankRecordingFormListObj.dailytankrecordingId}</td>
 								<td>${dailyTankRecordingFormListObj.siteName}</td>
 								<td>${dailyTankRecordingFormListObj.tankName}</td>
 								<td>${dailyTankRecordingFormListObj.documentDate}</td>

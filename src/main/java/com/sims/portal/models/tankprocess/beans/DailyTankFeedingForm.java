@@ -1,5 +1,6 @@
 package com.sims.portal.models.tankprocess.beans;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -19,7 +20,8 @@ public class DailyTankFeedingForm {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long dailytankfeeding_id;
+    @Column(name="dailytankfeeding_id")
+    private Long dailytankfeedingId;
     private String feedName;
     private Double feedQuantity;
     private String medicineName;

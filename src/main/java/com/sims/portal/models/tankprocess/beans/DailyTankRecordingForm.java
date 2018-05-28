@@ -22,7 +22,7 @@ public class DailyTankRecordingForm {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="dailytankrecording_id")
-    private Long dailytankrecording_id;
+    private Long dailytankrecordingId;
     private String siteName;
     private String tankName;
     private String documentDate;
