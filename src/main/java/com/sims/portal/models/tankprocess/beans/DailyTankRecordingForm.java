@@ -2,6 +2,7 @@ package com.sims.portal.models.tankprocess.beans;
 
 import java.util.Set;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -20,7 +21,8 @@ public class DailyTankRecordingForm {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long dailytankrecordingId;
+    @Column(name="dailytankrecording_id")
+    private Long dailytankrecording_id;
     private String siteName;
     private String tankName;
     private String documentDate;

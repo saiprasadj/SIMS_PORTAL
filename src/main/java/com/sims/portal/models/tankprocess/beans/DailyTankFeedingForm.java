@@ -19,7 +19,7 @@ public class DailyTankFeedingForm {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long dailytankfeedingId;
+    private Long dailytankfeeding_id;
     private String feedName;
     private Double feedQuantity;
     private String medicineName;
@@ -28,6 +28,6 @@ public class DailyTankFeedingForm {
     private String medicineTimings;
 
     @ManyToOne
-    @JoinColumn(name = "dailytankrecordingId", nullable = false)
+    @JoinColumn(name = "dailytankrecording_id", nullable = false)
     private DailyTankRecordingForm dailyTankRecordingForm;
 }
