@@ -7,16 +7,16 @@ import com.sims.portal.model.masters.beans.DepartmentMasterForm;
 
 public interface DepartmentMasterService {
 
-    void saveDepartmentMaster(DepartmentMasterForm departmentMasterForm);
+	void saveDepartmentMaster(DepartmentMasterForm departmentMasterForm);
 
-    List<DepartmentMasterForm> findDepartmentMasterDetails();
+	List<DepartmentMasterForm> findDepartmentMasterDetails();
 
-    DepartmentMasterForm findDepartmentMasterDetailsByCode(String departmentMasterCode);
+	DepartmentMasterForm findDepartmentMasterDetailsByCode(String departmentMasterCode);
 
-    void updateDepartmentMaster(DepartmentMasterForm departmentMasterForm);
+	void updateDepartmentMaster(DepartmentMasterForm departmentMasterForm);
 
-    void deleteDepartmentMaster(DepartmentMasterForm departmentMasterForm);
+	void deleteDepartmentMaster(DepartmentMasterForm departmentMasterForm);
 
-    Map<String, String> getDepartmentCodes();
+	Map<String, String> getDepartmentCodes();
 
 }

@@ -21,26 +21,26 @@ import lombok.extern.slf4j.Slf4j;
 @Transactional
 public class AdminServiceImpl implements AdminService {
 
-    @Autowired
-    private AdminUserRepository userRepository;
+	@Autowired
+	private AdminUserRepository userRepository;
 
-    @Autowired
-    private RolesRepository rolesRepository;
+	@Autowired
+	private RolesRepository rolesRepository;
 
-    @Override
-    public UserCredentials findUserCredential(int userid) {
-        log.debug("Calling findUserCredential with userid {}", userid);
-        return userRepository.findByUserId(userid);
-    }
+	@Override
+	public UserCredentials findUserCredential(int userid) {
+		log.debug("Calling findUserCredential with userid {}", userid);
+		return userRepository.findByUserId(userid);
+	}
 
-    @Override
-    public Map<String, String> getAllRolesMap() {
-        List<Role> rolesList = rolesRepository.findAll();
-        Map<String, String> rolesMap = new HashMap<>();
-        for (Role role : rolesList) {
-            rolesMap.put(role.getName(), role.getName());
-        }
-        return rolesMap;
-    }
+	@Override
+	public Map<String, String> getAllRolesMap() {
+		List<Role> rolesList = rolesRepository.findAll();
+		Map<String, String> rolesMap = new HashMap<>();
+		for (Role role : rolesList) {
+			rolesMap.put(role.getName(), role.getName());
+		}
+		return rolesMap;
+	}
 
 }

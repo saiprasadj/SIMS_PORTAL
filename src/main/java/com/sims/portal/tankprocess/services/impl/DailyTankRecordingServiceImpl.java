@@ -11,19 +11,19 @@ import com.sims.portal.tankprocess.services.DailyTankRecordingService;
 
 @Service
 public class DailyTankRecordingServiceImpl implements DailyTankRecordingService {
-    
-    @Autowired
-    private DailyTankRecordingFormRepository repository;
 
-    @Override
-    public void saveDailyTankRecordingForm(
-            DailyTankRecordingForm dailyTankRecordingForm) {
-        repository.save(dailyTankRecordingForm);
-    }
+	@Autowired
+	private DailyTankRecordingFormRepository repository;
 
-    @Override
-    public List<DailyTankRecordingForm> findDailyTankRecordingForm() {
-        return repository.findAll();
-    }
+	@Override
+	public void saveDailyTankRecordingForm(
+			DailyTankRecordingForm dailyTankRecordingForm) {
+		repository.save(dailyTankRecordingForm);
+	}
+
+	@Override
+	public List<DailyTankRecordingForm> findDailyTankRecordingForm() {
+		return repository.findAll();
+	}
 
 }

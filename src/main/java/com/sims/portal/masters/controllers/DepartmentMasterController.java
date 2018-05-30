@@ -35,7 +35,8 @@ public class DepartmentMasterController {
 	}
 
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
-	public ModelAndView saveDepartmentMaster(@ModelAttribute("departmentMasterForm") DepartmentMasterForm departmentMasterForm) {
+	public ModelAndView saveDepartmentMaster(
+			@ModelAttribute("departmentMasterForm") DepartmentMasterForm departmentMasterForm) {
 
 		ModelAndView modelAndView = new ModelAndView();
 		System.out.println("DepartmentMasterForm " + departmentMasterForm.getName());
@@ -49,23 +50,27 @@ public class DepartmentMasterController {
 
 	public ModelAndView findDepartmentMasterDetails(ModelAndView modelAndView) {
 
-		List<DepartmentMasterForm> departmentMasterFormList = departmentMasterService.findDepartmentMasterDetails();
+		List<DepartmentMasterForm> departmentMasterFormList = departmentMasterService
+				.findDepartmentMasterDetails();
 		modelAndView.addObject("departmentMasterFormListData", departmentMasterFormList);
 
 		return modelAndView;
 	}
 
 	@RequestMapping(value = "/edit/{code}", method = RequestMethod.GET)
-	public ModelAndView findDepartmentMasterDetailsByCode(@PathVariable(name = "code") String departmentMasterCode) {
+	public ModelAndView findDepartmentMasterDetailsByCode(
+			@PathVariable(name = "code") String departmentMasterCode) {
 
 		System.out.println("Code Received &&&&&&&&&&&&&&  " + departmentMasterCode);
 		ModelAndView modelAndView = new ModelAndView();
-		DepartmentMasterForm departmentMasterForm = departmentMasterService.findDepartmentMasterDetailsByCode(departmentMasterCode);
+		DepartmentMasterForm departmentMasterForm = departmentMasterService
+				.findDepartmentMasterDetailsByCode(departmentMasterCode);
 		modelAndView.addObject("departmentMasterForm", departmentMasterForm);
 		findDepartmentMasterDetails(modelAndView);
 		modelAndView.setViewName(MastersPageConstants.DEPARTMENT_MASTER_MAIN_PAGE);
 		modelAndView.addObject("tabToShow", "details");
-		modelAndView.addObject("departmentMasterURL", "department/update/" + departmentMasterForm.getId());
+		modelAndView.addObject("departmentMasterURL",
+				"department/update/" + departmentMasterForm.getId());
 
 		return modelAndView;
 	}
@@ -89,7 +94,8 @@ public class DepartmentMasterController {
 	}
 
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
-	public ModelAndView deleteDepartmentMasterDetailsByCode(@PathVariable(name = "id") Long id,
+	public ModelAndView deleteDepartmentMasterDetailsByCode(
+			@PathVariable(name = "id") Long id,
 			@ModelAttribute("departmentMasterForm") DepartmentMasterForm departmentMasterForm) {
 
 		System.out.println("DELETING ID =========== " + id);
@@ -102,7 +108,8 @@ public class DepartmentMasterController {
 		return modelAndView;
 	}
 
-	private ModelAndView setDefaultDataForDepartmentMasterPage(ModelAndView modelAndView) {
+	private ModelAndView setDefaultDataForDepartmentMasterPage(
+			ModelAndView modelAndView) {
 
 		modelAndView.addObject("departmentMasterForm", new DepartmentMasterForm());
 

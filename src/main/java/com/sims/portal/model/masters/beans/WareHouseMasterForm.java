@@ -16,11 +16,15 @@ import lombok.Setter;
 @Table(name = "warehouse_master")
 public class WareHouseMasterForm {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String name;
-    @Column(unique = true)
-    private String code;
-    private String alias;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+
+	private String name;
+
+	@Column(unique = true)
+	private String code;
+
+	private String alias;
+
 }

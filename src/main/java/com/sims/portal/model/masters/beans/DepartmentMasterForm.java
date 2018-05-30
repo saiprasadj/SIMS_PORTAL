@@ -15,13 +15,16 @@ import lombok.Setter;
 @Getter
 @Setter
 public class DepartmentMasterForm {
-    
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String name;
 
-    @Column(unique = true)
-    private String code;
-    private String alias;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+
+	private String name;
+
+	@Column(unique = true)
+	private String code;
+
+	private String alias;
+
 }

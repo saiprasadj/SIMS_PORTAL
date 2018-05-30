@@ -14,56 +14,56 @@ import com.sims.portal.model.masters.beans.DepartmentMasterForm;
 @Service
 public class DepartmentMasterServiceImpl implements DepartmentMasterService {
 
-    @Autowired
-    private DepartmentMasterFormRepository repository;
+	@Autowired
+	private DepartmentMasterFormRepository repository;
 
-    @Override
-    public void saveDepartmentMaster(DepartmentMasterForm departmentMasterForm) {
-        repository.save(departmentMasterForm);
-    }
+	@Override
+	public void saveDepartmentMaster(DepartmentMasterForm departmentMasterForm) {
+		repository.save(departmentMasterForm);
+	}
 
-    @Override
-    public List<DepartmentMasterForm> findDepartmentMasterDetails() {
-        return repository.findAll();
-    }
+	@Override
+	public List<DepartmentMasterForm> findDepartmentMasterDetails() {
+		return repository.findAll();
+	}
 
-    @Override
-    public DepartmentMasterForm findDepartmentMasterDetailsByCode(
-            String departmentMasterCode) {
-        List<DepartmentMasterForm> departmentMasterForm = repository
-                .findByCode(departmentMasterCode);
-        if (!departmentMasterForm.isEmpty()) {
+	@Override
+	public DepartmentMasterForm findDepartmentMasterDetailsByCode(
+			String departmentMasterCode) {
+		List<DepartmentMasterForm> departmentMasterForm = repository
+				.findByCode(departmentMasterCode);
+		if (!departmentMasterForm.isEmpty()) {
 
-            return departmentMasterForm.get(0);
-        }
+			return departmentMasterForm.get(0);
+		}
 
-        return new DepartmentMasterForm();
-    }
+		return new DepartmentMasterForm();
+	}
 
-    @Override
-    public void updateDepartmentMaster(DepartmentMasterForm departmentMasterForm) {
-        repository.save(departmentMasterForm);
+	@Override
+	public void updateDepartmentMaster(DepartmentMasterForm departmentMasterForm) {
+		repository.save(departmentMasterForm);
 
-    }
+	}
 
-    @Override
-    public void deleteDepartmentMaster(DepartmentMasterForm departmentMasterForm) {
-        repository.delete(departmentMasterForm);
+	@Override
+	public void deleteDepartmentMaster(DepartmentMasterForm departmentMasterForm) {
+		repository.delete(departmentMasterForm);
 
-    }
+	}
 
-    @Override
-    public Map<String, String> getDepartmentCodes() {
+	@Override
+	public Map<String, String> getDepartmentCodes() {
 
-        List<DepartmentMasterForm> listOfDepartments = findDepartmentMasterDetails();
+		List<DepartmentMasterForm> listOfDepartments = findDepartmentMasterDetails();
 
-        Map<String, String> departmentCodes = new HashMap<>();
+		Map<String, String> departmentCodes = new HashMap<>();
 
-        for (DepartmentMasterForm departmentMasterForm : listOfDepartments) {
-            departmentCodes.put(departmentMasterForm.getCode(),
-                    departmentMasterForm.getCode());
-        }
-        return departmentCodes;
-    }
+		for (DepartmentMasterForm departmentMasterForm : listOfDepartments) {
+			departmentCodes.put(departmentMasterForm.getCode(),
+					departmentMasterForm.getCode());
+		}
+		return departmentCodes;
+	}
 
 }

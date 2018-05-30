@@ -17,48 +17,49 @@ import com.sims.portal.user.services.impl.DefaultUserDetailsService;
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Bean
-    public AuthenticationTrustResolver authenticationTrustResolver() {
-        return new AuthenticationTrustResolverImpl();
-    }
+	@Bean
+	public AuthenticationTrustResolver authenticationTrustResolver() {
+		return new AuthenticationTrustResolverImpl();
+	}
 
-    @Bean
-    public UserDetailsService defaultUserDetailsService() {
-        return new DefaultUserDetailsService();
-    }
+	@Bean
+	public UserDetailsService defaultUserDetailsService() {
+		return new DefaultUserDetailsService();
+	}
 
-    @Bean
-    public PasswordEncoder encoder() {
-        return new BCryptPasswordEncoder(11);
-    }
+	@Bean
+	public PasswordEncoder encoder() {
+		return new BCryptPasswordEncoder(11);
+	}
 
-    @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(defaultUserDetailsService()).passwordEncoder(encoder());
-    }
+	@Autowired
+	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+		auth.userDetailsService(defaultUserDetailsService()).passwordEncoder(encoder());
+	}
 
-    @Override
-    public void configure(HttpSecurity http) throws Exception {
+	@Override
+	public void configure(HttpSecurity http) throws Exception {
 
-        http.authorizeRequests()
-                .antMatchers("/login", "/processLogin", "/accessdenied", "/WEB-INF/**")
-                .permitAll();
+		http.authorizeRequests()
+				.antMatchers("/login", "/processLogin", "/accessdenied", "/WEB-INF/**")
+				.permitAll();
 
-        http.authorizeRequests()
-                .antMatchers("/admin/**", "/master/**", "/manager/**", "/*")
-                .authenticated();
+		http.authorizeRequests()
+				.antMatchers("/admin/**", "/master/**", "/manager/**", "/*")
+				.authenticated();
 
-        http.authorizeRequests().antMatchers("/welcome").hasAnyRole("ROLE_USER",
-                "ROLE_ADMIN", "ROLE_MIS");
+		http.authorizeRequests().antMatchers("/welcome").hasAnyRole("ROLE_USER",
+				"ROLE_ADMIN", "ROLE_MIS");
 
-        http.formLogin().loginProcessingUrl("/processLogin").loginPage("/login")
-                .defaultSuccessUrl("/welcome").failureUrl("/login?error")
-                .usernameParameter("username").passwordParameter("password");
+		http.formLogin().loginProcessingUrl("/processLogin").loginPage("/login")
+				.defaultSuccessUrl("/welcome").failureUrl("/login?error")
+				.usernameParameter("username").passwordParameter("password");
 
-        http.logout().logoutSuccessUrl("/login").logoutUrl("/performlogout")
-                .deleteCookies("JSESSIONID").invalidateHttpSession(true);
+		http.logout().logoutSuccessUrl("/login").logoutUrl("/performlogout")
+				.deleteCookies("JSESSIONID").invalidateHttpSession(true);
 
-        http.sessionManagement().invalidSessionUrl("/login").maximumSessions(1)
-                .expiredUrl("/login");
-    }
+		http.sessionManagement().invalidSessionUrl("/login").maximumSessions(1)
+				.expiredUrl("/login");
+	}
+
 }

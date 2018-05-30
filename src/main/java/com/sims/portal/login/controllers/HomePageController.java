@@ -14,22 +14,22 @@ import com.sims.portal.user.services.AdminService;
 @Controller
 public class HomePageController {
 
-    @Autowired
-    private AdminService adminService;
+	@Autowired
+	private AdminService adminService;
 
-    @GetMapping(value = { "/", "/welcome" })
-    public String homePage(ModelMap model) {
+	@GetMapping(value = { "/", "/welcome" })
+	public String homePage(ModelMap model) {
 
-        DefaultUserDetails principal = (DefaultUserDetails) SecurityContextHolder
-                .getContext().getAuthentication().getPrincipal();
-        UserCredentials details = adminService
-                .findUserCredential(Integer.parseInt(principal.getUsername()));
-        if (details.getChangePassword() == 1) {
-            model.put("changepasswrod", new ForgotPassword());
-            return "changepassword.page";
-        }
+		DefaultUserDetails principal = (DefaultUserDetails) SecurityContextHolder
+				.getContext().getAuthentication().getPrincipal();
+		UserCredentials details = adminService
+				.findUserCredential(Integer.parseInt(principal.getUsername()));
+		if (details.getChangePassword() == 1) {
+			model.put("changepasswrod", new ForgotPassword());
+			return "changepassword.page";
+		}
 
-        return "welcome.page";
-    }
+		return "welcome.page";
+	}
 
 }

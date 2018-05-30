@@ -16,16 +16,23 @@ import lombok.Setter;
 @Table(name = "employee_master")
 public class EmployeeMasterForm {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String name;
-    @Column(unique = true)
-    private String code;
-    private String alias;
-    private String dateOfJoining;
-    private String proofAttachment;
-    private String photoAttachment;
-    private String departmentCode;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+
+	private String name;
+
+	@Column(unique = true)
+	private String code;
+
+	private String alias;
+
+	private String dateOfJoining;
+
+	private String proofAttachment;
+
+	private String photoAttachment;
+
+	private String departmentCode;
 
 }

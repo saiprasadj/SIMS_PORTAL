@@ -23,17 +23,23 @@ import lombok.Setter;
 @Setter
 public class User {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-    private String firstname = null;
-    private String lastname = null;
-    private String username = null;
-    private String password = null;
-    @Transient
-    private String passwordConfirm;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
 
-    @ManyToMany
-    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Set<Role> roles;
+	private String firstname = null;
+
+	private String lastname = null;
+
+	private String username = null;
+
+	private String password = null;
+
+	@Transient
+	private String passwordConfirm;
+
+	@ManyToMany
+	@JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+	private Set<Role> roles;
+
 }

@@ -19,23 +19,34 @@ import lombok.Setter;
 @Table(name = "tank_operation_dailytankrecording")
 public class DailyTankRecordingForm {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="dailytankrecording_id")
-    private Long dailytankrecordingId;
-    private String siteName;
-    private String tankName;
-    private String documentDate;
-    private Long doc;
-    private String supervisor;
-    private String remarks;
-    private String phAM;
-    private String phPM;
-    private Integer doNumber;
-    private String mortality;
-    private String labreportAttachment;
-    
-    @OneToMany(mappedBy = "dailyTankRecordingForm")
-    private Set<DailyTankFeedingForm> dailyTankFeeding;
-    
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "dailytankrecording_id")
+	private Long dailytankrecordingId;
+
+	private String siteName;
+
+	private String tankName;
+
+	private String documentDate;
+
+	private Long doc;
+
+	private String supervisor;
+
+	private String remarks;
+
+	private String phAM;
+
+	private String phPM;
+
+	private Integer doNumber;
+
+	private String mortality;
+
+	private String labreportAttachment;
+
+	@OneToMany(mappedBy = "dailyTankRecordingForm")
+	private Set<DailyTankFeedingForm> dailyTankFeeding;
+
 }

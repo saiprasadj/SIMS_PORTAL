@@ -13,25 +13,42 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "account_master", uniqueConstraints = { @UniqueConstraint(columnNames = "code") })
+@Table(name = "account_master", uniqueConstraints = {
+		@UniqueConstraint(columnNames = "code") })
 public class AccountMasterForm {
 
-    @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private Long id;
-    private String name;
-    private String alias;
-    private String emailid;
-    private String code;
-    private String billingaddress;
-    private String typeofcustomer;
-    private String deliveryaddress;
-    private String locality;
-    private String pannumber;
-    private String state;
-    private String phonenumber;
-    private String tin;
-    private String contactperson;
-    private String contactpersonmobilenumber;
-    private String contactpersonemailid;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+
+	private String name;
+
+	private String alias;
+
+	private String emailid;
+
+	private String code;
+
+	private String billingaddress;
+
+	private String typeofcustomer;
+
+	private String deliveryaddress;
+
+	private String locality;
+
+	private String pannumber;
+
+	private String state;
+
+	private String phonenumber;
+
+	private String tin;
+
+	private String contactperson;
+
+	private String contactpersonmobilenumber;
+
+	private String contactpersonemailid;
+
 }

@@ -16,15 +16,23 @@ import lombok.Setter;
 @Table(name = "product_master")
 public class ProductMasterForm {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String name;
-    @Column(unique = true)
-    private String code;
-    private String alias;
-    private String uom;
-    private Double buyingPrice;
-    private String reorderLevel;
-    private Double sellingPrice;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+
+	private String name;
+
+	@Column(unique = true)
+	private String code;
+
+	private String alias;
+
+	private String uom;
+
+	private Double buyingPrice;
+
+	private String reorderLevel;
+
+	private Double sellingPrice;
+
 }

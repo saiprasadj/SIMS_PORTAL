@@ -31,69 +31,69 @@ import com.sims.portal.security.services.SecurityContextService;
 @RequestMapping("/login")
 public class LoginPageController {
 
-    private static final Logger logger = LoggerFactory
-            .getLogger(LoginPageController.class);
+	private static final Logger logger = LoggerFactory
+			.getLogger(LoginPageController.class);
 
-    protected static final String LOGIN_INVALID_MSG_CODE = "login.failed.invalid.message";
+	protected static final String LOGIN_INVALID_MSG_CODE = "login.failed.invalid.message";
 
-    @Autowired
-    private MessageSource messageSource;
+	@Autowired
+	private MessageSource messageSource;
 
-    @Autowired
-    private SecurityContextService securityContextService;
+	@Autowired
+	private SecurityContextService securityContextService;
 
-    @GetMapping
-    public String loginPage(ModelMap model, String error, String logout, Locale locale) {
+	@GetMapping
+	public String loginPage(ModelMap model, String error, String logout, Locale locale) {
 
-        logger.debug("From Login Page Method");
+		logger.debug("From Login Page Method");
 
-        model.addAttribute("LoginForm", new LoginForm());
-        if (error != null) {
-            model.addAttribute("error",
-                    messageSource.getMessage(LOGIN_INVALID_MSG_CODE, null, locale));
-        }
+		model.addAttribute("LoginForm", new LoginForm());
+		if (error != null) {
+			model.addAttribute("error",
+					messageSource.getMessage(LOGIN_INVALID_MSG_CODE, null, locale));
+		}
 
-        if (securityContextService.isUserAnonymous()) {
-            return "login.page";
-        }
+		if (securityContextService.isUserAnonymous()) {
+			return "login.page";
+		}
 
-        return "welcome.page";
-    }
+		return "welcome.page";
+	}
 
-    @RequestMapping(value = "validate", method = RequestMethod.POST)
-    public @ResponseBody ValidationResponse processFormAjaxJson(Model model,
-            @ModelAttribute(value = "LoginForm") @Valid LoginForm loginForm,
-            BindingResult result) {
-        ValidationResponse res = new ValidationResponse();
-        if (!result.hasErrors()) {
-            res.setStatus("SUCCESS");
-        }
-        else {
-            res.setStatus("FAIL");
-            List<FieldError> allErrors = result.getFieldErrors();
-            List<ErrorMessage> errorMesages = new ArrayList<>();
-            for (FieldError objectError : allErrors) {
-                errorMesages.add(new ErrorMessage(objectError.getField(),
-                        objectError.getDefaultMessage()));
-            }
-            res.setErrorMessageList(errorMesages);
+	@RequestMapping(value = "validate", method = RequestMethod.POST)
+	public @ResponseBody ValidationResponse processFormAjaxJson(Model model,
+			@ModelAttribute(value = "LoginForm") @Valid LoginForm loginForm,
+			BindingResult result) {
+		ValidationResponse res = new ValidationResponse();
+		if (!result.hasErrors()) {
+			res.setStatus("SUCCESS");
+		}
+		else {
+			res.setStatus("FAIL");
+			List<FieldError> allErrors = result.getFieldErrors();
+			List<ErrorMessage> errorMesages = new ArrayList<>();
+			for (FieldError objectError : allErrors) {
+				errorMesages.add(new ErrorMessage(objectError.getField(),
+						objectError.getDefaultMessage()));
+			}
+			res.setErrorMessageList(errorMesages);
 
-        }
+		}
 
-        return res;
-    }
+		return res;
+	}
 
-    public String getpassword() {
-        int leftLimit = 97;
-        int rightLimit = 122;
-        int targetStringLength = 10;
-        StringBuilder buffer = new StringBuilder(targetStringLength);
-        for (int i = 0; i < targetStringLength; i++) {
-            int randomLimitedInt = leftLimit
-                    + (new Random().nextInt() * (rightLimit - leftLimit + 1));
-            buffer.append((char) randomLimitedInt);
-        }
-        return buffer.toString();
-    }
+	public String getpassword() {
+		int leftLimit = 97;
+		int rightLimit = 122;
+		int targetStringLength = 10;
+		StringBuilder buffer = new StringBuilder(targetStringLength);
+		for (int i = 0; i < targetStringLength; i++) {
+			int randomLimitedInt = leftLimit
+					+ (new Random().nextInt() * (rightLimit - leftLimit + 1));
+			buffer.append((char) randomLimitedInt);
+		}
+		return buffer.toString();
+	}
 
 }

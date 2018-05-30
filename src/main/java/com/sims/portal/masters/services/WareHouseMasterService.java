@@ -6,14 +6,14 @@ import com.sims.portal.model.masters.beans.WareHouseMasterForm;
 
 public interface WareHouseMasterService {
 
-    void saveWareHouseMaster(WareHouseMasterForm wareHouseMasterForm);
+	void saveWareHouseMaster(WareHouseMasterForm wareHouseMasterForm);
 
-    List<WareHouseMasterForm> findWareHouseMasterDetails();
+	List<WareHouseMasterForm> findWareHouseMasterDetails();
 
-    WareHouseMasterForm findWareHouseMasterDetailsByCode(String wareHouseMasterCode);
+	WareHouseMasterForm findWareHouseMasterDetailsByCode(String wareHouseMasterCode);
 
-    void updateWareHouseMaster(WareHouseMasterForm wareHouseMasterForm);
+	void updateWareHouseMaster(WareHouseMasterForm wareHouseMasterForm);
 
-    void deleteWareHouseMaster(WareHouseMasterForm wareHouseMasterForm);
+	void deleteWareHouseMaster(WareHouseMasterForm wareHouseMasterForm);
 
 }

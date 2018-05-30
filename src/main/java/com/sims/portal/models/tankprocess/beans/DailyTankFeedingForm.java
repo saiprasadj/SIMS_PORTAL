@@ -18,18 +18,25 @@ import lombok.Setter;
 @Table(name = "tank_operation_dailytankfeeding")
 public class DailyTankFeedingForm {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="dailytankfeeding_id")
-    private Long dailytankfeedingId;
-    private String feedName;
-    private Double feedQuantity;
-    private String medicineName;
-    private Double medicineQuantity;
-    private Double consumedPercentage;
-    private String medicineTimings;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "dailytankfeeding_id")
+	private Long dailytankfeedingId;
 
-    @ManyToOne
-    @JoinColumn(name = "dailytankrecording_id", nullable = false)
-    private DailyTankRecordingForm dailyTankRecordingForm;
+	private String feedName;
+
+	private Double feedQuantity;
+
+	private String medicineName;
+
+	private Double medicineQuantity;
+
+	private Double consumedPercentage;
+
+	private String medicineTimings;
+
+	@ManyToOne
+	@JoinColumn(name = "dailytankrecording_id", nullable = false)
+	private DailyTankRecordingForm dailyTankRecordingForm;
+
 }

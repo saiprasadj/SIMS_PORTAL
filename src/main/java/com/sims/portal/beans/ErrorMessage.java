@@ -9,6 +9,8 @@ import lombok.Setter;
 @AllArgsConstructor
 public class ErrorMessage {
 
-    private String fieldName;
-    private String message;
+	private String fieldName;
+
+	private String message;
+
 }

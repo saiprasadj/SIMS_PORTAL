@@ -6,8 +6,8 @@ import com.sims.portal.models.tankprocess.beans.DailyTankRecordingForm;
 
 public interface DailyTankRecordingService {
 
-    void saveDailyTankRecordingForm(DailyTankRecordingForm dailyTankRecordingForm);
+	void saveDailyTankRecordingForm(DailyTankRecordingForm dailyTankRecordingForm);
 
-    List<DailyTankRecordingForm> findDailyTankRecordingForm();
+	List<DailyTankRecordingForm> findDailyTankRecordingForm();
 
 }

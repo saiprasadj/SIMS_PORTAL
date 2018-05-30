@@ -6,6 +6,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.sims.portal.model.masters.beans.WareHouseMasterForm;
 
-public interface WareHouseMasterFormRepository extends JpaRepository<WareHouseMasterForm, Long>{
-    List<WareHouseMasterForm> findByCode(String code);
+public interface WareHouseMasterFormRepository
+		extends JpaRepository<WareHouseMasterForm, Long> {
+
+	List<WareHouseMasterForm> findByCode(String code);
+
 }

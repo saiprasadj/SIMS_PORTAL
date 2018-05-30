@@ -9,10 +9,14 @@ import lombok.Setter;
 @Setter
 public class ForgotPassword {
 
-    @NotEmpty(message = "{login.username.empty}")
-    private String userId;
-    private String password;
-    private String changePassword;
-    @NotEmpty(message = "{login.email.empty}")
-    private String email;
+	@NotEmpty(message = "{login.username.empty}")
+	private String userId;
+
+	private String password;
+
+	private String changePassword;
+
+	@NotEmpty(message = "{login.email.empty}")
+	private String email;
+
 }

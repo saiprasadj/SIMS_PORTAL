@@ -20,10 +20,13 @@ import lombok.Setter;
 @NoArgsConstructor
 public class Role {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-    private String name = null;
-    @ManyToMany(mappedBy = "roles")
-    private Set<User> users;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
+
+	private String name = null;
+
+	@ManyToMany(mappedBy = "roles")
+	private Set<User> users;
+
 }

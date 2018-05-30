@@ -12,26 +12,28 @@ import com.sims.portal.security.services.SecurityContextService;
 @Service("securityContextService")
 public final class DefaultSecurityContextService implements SecurityContextService {
 
-    @Autowired
-    private AuthenticationTrustResolver authenticationTrustResolver;
-    
-    @Override
-    public boolean isUserAnonymous() {
-        final Authentication authentication =
-                SecurityContextHolder.getContext().getAuthentication();
-        return authenticationTrustResolver.isAnonymous(authentication);
-    }
+	@Autowired
+	private AuthenticationTrustResolver authenticationTrustResolver;
 
-    @Override
-    public UserDetails getCurrentUser() {
+	@Override
+	public boolean isUserAnonymous() {
+		final Authentication authentication = SecurityContextHolder.getContext()
+				.getAuthentication();
+		return authenticationTrustResolver.isAnonymous(authentication);
+	}
 
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+	@Override
+	public UserDetails getCurrentUser() {
 
-        if (principal instanceof UserDetails) {
-            return ((UserDetails)principal);
-        } else {
-            return null;
-        }
-    }
+		Object principal = SecurityContextHolder.getContext().getAuthentication()
+				.getPrincipal();
+
+		if (principal instanceof UserDetails) {
+			return ((UserDetails) principal);
+		}
+		else {
+			return null;
+		}
+	}
 
 }

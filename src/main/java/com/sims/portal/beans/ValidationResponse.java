@@ -9,6 +9,8 @@ import lombok.Setter;
 @Setter
 public class ValidationResponse {
 
-    private String status;
-    private List<ErrorMessage> errorMessageList;
+	private String status;
+
+	private List<ErrorMessage> errorMessageList;
+
 }

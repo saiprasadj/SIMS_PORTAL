@@ -6,6 +6,6 @@ import com.sims.portal.model.user.UserCredentials;
 
 public interface AdminUserRepository extends JpaRepository<UserCredentials, Integer> {
 
-    UserCredentials findByUserId(int userid);
+	UserCredentials findByUserId(int userid);
 
 }

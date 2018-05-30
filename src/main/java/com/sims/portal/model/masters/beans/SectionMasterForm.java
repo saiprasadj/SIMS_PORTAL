@@ -13,14 +13,18 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name="section_master")
+@Table(name = "section_master")
 public class SectionMasterForm {
 
-    @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private Long id;
-    private String name;
-    @Column(unique = true)
-    private String code;
-    private String alias;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+
+	private String name;
+
+	@Column(unique = true)
+	private String code;
+
+	private String alias;
+
 }

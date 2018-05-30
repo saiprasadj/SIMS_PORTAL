@@ -14,29 +14,33 @@ import lombok.Setter;
 @Setter
 public class UserDetails {
 
-    @Id
-    @Column(name = "user_id")
-    private Integer userId;
+	@Id
+	@Column(name = "user_id")
+	private Integer userId;
 
-    @Column(name = "sales_execode")
-    private String salesExecode;
-    
-    private String description;
-    private String name;
-    private Long phone;
+	@Column(name = "sales_execode")
+	private String salesExecode;
 
-    @Column(name = "next_approver")
-    private int nextApprover;
+	private String description;
 
-    @Column(name = "alternative_emp")
-    private int alternativeEmp;
+	private String name;
 
-    @Column(name = "active_flag")
-    private int activeFlag;
-    
-    private String email;
+	private Long phone;
 
-    @Column(name = "role_name")
-    private String roleName;
-    private Integer managerID;
+	@Column(name = "next_approver")
+	private int nextApprover;
+
+	@Column(name = "alternative_emp")
+	private int alternativeEmp;
+
+	@Column(name = "active_flag")
+	private int activeFlag;
+
+	private String email;
+
+	@Column(name = "role_name")
+	private String roleName;
+
+	private Integer managerID;
+
 }

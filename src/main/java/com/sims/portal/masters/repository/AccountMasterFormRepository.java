@@ -6,7 +6,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.sims.portal.model.masters.beans.AccountMasterForm;
 
-public interface AccountMasterFormRepository extends JpaRepository<AccountMasterForm, Long>{
+public interface AccountMasterFormRepository
+		extends JpaRepository<AccountMasterForm, Long> {
 
-    List<AccountMasterForm> findByCode(String code);
+	List<AccountMasterForm> findByCode(String code);
+
 }

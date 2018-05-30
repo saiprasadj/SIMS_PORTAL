@@ -12,39 +12,39 @@ import com.sims.portal.model.masters.beans.AccountMasterForm;
 @Service
 public class AccountMasterServiceImpl implements AccountMasterService {
 
-    @Autowired
-    private AccountMasterFormRepository repository;
+	@Autowired
+	private AccountMasterFormRepository repository;
 
-    @Override
-    public AccountMasterForm saveAccountMaster(AccountMasterForm accountMasterForm) {
-        return repository.save(accountMasterForm);
-    }
+	@Override
+	public AccountMasterForm saveAccountMaster(AccountMasterForm accountMasterForm) {
+		return repository.save(accountMasterForm);
+	}
 
-    @Override
-    public AccountMasterForm updateAccountMaster(AccountMasterForm accountMasterForm) {
-        return repository.save(accountMasterForm);
-    }
+	@Override
+	public AccountMasterForm updateAccountMaster(AccountMasterForm accountMasterForm) {
+		return repository.save(accountMasterForm);
+	}
 
-    @Override
-    public Boolean deleteAccountMaster(AccountMasterForm accountMasterForm) {
-        repository.delete(accountMasterForm);
-        return true;
-    }
+	@Override
+	public Boolean deleteAccountMaster(AccountMasterForm accountMasterForm) {
+		repository.delete(accountMasterForm);
+		return true;
+	}
 
-    @Override
-    public List<AccountMasterForm> findAccountMasterDetails() {
-        return repository.findAll();
-    }
+	@Override
+	public List<AccountMasterForm> findAccountMasterDetails() {
+		return repository.findAll();
+	}
 
-    @Override
-    public AccountMasterForm findAccountMasterDetailsByCode(String code) {
-        List<AccountMasterForm> accountMasterForm = repository.findByCode(code);
-        if (!accountMasterForm.isEmpty()) {
+	@Override
+	public AccountMasterForm findAccountMasterDetailsByCode(String code) {
+		List<AccountMasterForm> accountMasterForm = repository.findByCode(code);
+		if (!accountMasterForm.isEmpty()) {
 
-            return accountMasterForm.get(0);
-        }
+			return accountMasterForm.get(0);
+		}
 
-        return new AccountMasterForm();
-    }
+		return new AccountMasterForm();
+	}
 
 }

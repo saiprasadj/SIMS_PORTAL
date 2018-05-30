@@ -10,13 +10,13 @@ import com.sims.portal.tankprocess.services.DailyTankFeedingService;
 @Service
 public class DailyTankFeedingServiceImpl implements DailyTankFeedingService {
 
-    @Autowired
-    private DailyTankFeedingFormRepository repository;
+	@Autowired
+	private DailyTankFeedingFormRepository repository;
 
-    @Override
-    public DailyTankFeedingForm saveDailyTankFeedingForm(
-            DailyTankFeedingForm dailyTankFeedingForm) {
-        return repository.save(dailyTankFeedingForm);
-    }
+	@Override
+	public DailyTankFeedingForm saveDailyTankFeedingForm(
+			DailyTankFeedingForm dailyTankFeedingForm) {
+		return repository.save(dailyTankFeedingForm);
+	}
 
 }

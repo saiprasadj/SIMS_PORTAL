@@ -15,29 +15,26 @@ import com.sims.portal.user.services.AdminService;
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
-    
-    @Autowired
-    private AdminService adminService;
 
-    @GetMapping("/profile")
-    public String getProfile(ModelMap model) {
+	@Autowired
+	private AdminService adminService;
 
-        return "profile.page";
-    }
+	@GetMapping("/profile")
+	public String getProfile(ModelMap model) {
 
-    
-    @ModelAttribute("rolesMap")
-    public Map<String,String> rolesMap() {
-        return adminService.getAllRolesMap();
-    }
-    
-    @GetMapping("/addNewUser")
-    public String addNewUser(ModelMap model) {
-        UserDetails userDetails = new UserDetails();
-        model.addAttribute("userDetails", userDetails);
-        return "addNewUser.page";
-    }
-    
-    
-    
+		return "profile.page";
+	}
+
+	@ModelAttribute("rolesMap")
+	public Map<String, String> rolesMap() {
+		return this.adminService.getAllRolesMap();
+	}
+
+	@GetMapping("/addNewUser")
+	public String addNewUser(ModelMap model) {
+		UserDetails userDetails = new UserDetails();
+		model.addAttribute("userDetails", userDetails);
+		return "addNewUser.page";
+	}
+
 }

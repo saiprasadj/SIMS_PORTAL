@@ -10,38 +10,38 @@ import com.sims.portal.masters.services.ProductMasterService;
 import com.sims.portal.model.masters.beans.ProductMasterForm;
 
 @Service
-public class ProductMasterServiceImpl implements ProductMasterService{
-    
-    @Autowired
-    private ProductMasterFormRepository repository;
+public class ProductMasterServiceImpl implements ProductMasterService {
 
-    @Override
-    public void saveProductMaster(ProductMasterForm productMasterForm) {
-        repository.save(productMasterForm);
-    }
+	@Autowired
+	private ProductMasterFormRepository repository;
 
-    @Override
-    public List<ProductMasterForm> findProductMasterDetails() {
-        return repository.findAll();
-    }
+	@Override
+	public void saveProductMaster(ProductMasterForm productMasterForm) {
+		repository.save(productMasterForm);
+	}
 
-    @Override
-    public ProductMasterForm findProductMasterDetailsByCode(String productMasterCode) {
-        List<ProductMasterForm> masterForms = repository.findByCode(productMasterCode);
-        if (!masterForms.isEmpty()) {
-            return masterForms.get(0);
-        }
-        return new ProductMasterForm();
-    }
+	@Override
+	public List<ProductMasterForm> findProductMasterDetails() {
+		return repository.findAll();
+	}
 
-    @Override
-    public void updateProductMaster(ProductMasterForm productMasterForm) {
-        repository.save(productMasterForm);
-    }
+	@Override
+	public ProductMasterForm findProductMasterDetailsByCode(String productMasterCode) {
+		List<ProductMasterForm> masterForms = repository.findByCode(productMasterCode);
+		if (!masterForms.isEmpty()) {
+			return masterForms.get(0);
+		}
+		return new ProductMasterForm();
+	}
 
-    @Override
-    public void deleteProductMaster(ProductMasterForm productMasterForm) {
-       repository.delete(productMasterForm);
-    }
+	@Override
+	public void updateProductMaster(ProductMasterForm productMasterForm) {
+		repository.save(productMasterForm);
+	}
+
+	@Override
+	public void deleteProductMaster(ProductMasterForm productMasterForm) {
+		repository.delete(productMasterForm);
+	}
 
 }
