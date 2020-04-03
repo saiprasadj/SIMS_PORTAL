@@ -38,8 +38,7 @@ public class SectionMasterController {
 	}
 
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
-	public ModelAndView saveSectionMaster(
-			@ModelAttribute("sectionMasterForm") SectionMasterForm sectionMasterForm) {
+	public ModelAndView saveSectionMaster(@ModelAttribute("sectionMasterForm") SectionMasterForm sectionMasterForm) {
 
 		ModelAndView modelAndView = new ModelAndView();
 		log.info("SectionMasterForm " + sectionMasterForm.getName());
@@ -53,27 +52,23 @@ public class SectionMasterController {
 
 	public ModelAndView findSectionMasterDetails(ModelAndView modelAndView) {
 
-		List<SectionMasterForm> sectionMasterFormList = sectionMasterService
-				.findSectionMasterDetails();
+		List<SectionMasterForm> sectionMasterFormList = sectionMasterService.findSectionMasterDetails();
 		modelAndView.addObject("sectionMasterFormListData", sectionMasterFormList);
 
 		return modelAndView;
 	}
 
 	@RequestMapping(value = "/edit/{code}", method = RequestMethod.GET)
-	public ModelAndView findSectionMasterDetailsByCode(
-			@PathVariable(name = "code") String sectionMasterCode) {
+	public ModelAndView findSectionMasterDetailsByCode(@PathVariable(name = "code") String sectionMasterCode) {
 
 		log.info("Code Received &&&&&&&&&&&&&&  " + sectionMasterCode);
 		ModelAndView modelAndView = new ModelAndView();
-		SectionMasterForm sectionMasterForm = sectionMasterService
-				.findSectionMasterDetailsByCode(sectionMasterCode);
+		SectionMasterForm sectionMasterForm = sectionMasterService.findSectionMasterDetailsByCode(sectionMasterCode);
 		modelAndView.addObject("sectionMasterForm", sectionMasterForm);
 		findSectionMasterDetails(modelAndView);
 		modelAndView.setViewName(MastersPageConstants.SECTION_MASTER_MAIN_PAGE);
 		modelAndView.addObject("tabToShow", "details");
-		modelAndView.addObject("sectionMasterURL",
-				"section/update/" + sectionMasterForm.getId());
+		modelAndView.addObject("sectionMasterURL", "section/update/" + sectionMasterForm.getId());
 
 		return modelAndView;
 	}
@@ -97,8 +92,7 @@ public class SectionMasterController {
 	}
 
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
-	public ModelAndView deleteSectionMasterDetailsByCode(
-			@PathVariable(name = "id") Long id,
+	public ModelAndView deleteSectionMasterDetailsByCode(@PathVariable(name = "id") Long id,
 			@ModelAttribute("sectionMasterForm") SectionMasterForm sectionMasterForm) {
 
 		log.info("DELETING ID =========== " + id);

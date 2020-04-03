@@ -26,8 +26,7 @@ public class DefaultUserDetailsService implements UserDetailsService {
 	private AdminUserRepository userRepository;
 
 	@Override
-	public UserDetails loadUserByUsername(String username)
-			throws UsernameNotFoundException {
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		UserCredentials user = userRepository.findByUserId(Integer.valueOf(username));
 		log.debug("User : {}", user);
 		if (user == null) {
@@ -37,8 +36,7 @@ public class DefaultUserDetailsService implements UserDetailsService {
 		return new DefaultUserDetails(user, getGrantedAuthorities(user));
 	}
 
-	private Collection<? extends GrantedAuthority> getGrantedAuthorities(
-			UserCredentials user) {
+	private Collection<? extends GrantedAuthority> getGrantedAuthorities(UserCredentials user) {
 		List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
 		grantedAuthorities.add(new SimpleGrantedAuthority(user.getRole()));
 		return grantedAuthorities;

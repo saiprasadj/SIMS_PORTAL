@@ -28,10 +28,8 @@ public class DepartmentMasterServiceImpl implements DepartmentMasterService {
 	}
 
 	@Override
-	public DepartmentMasterForm findDepartmentMasterDetailsByCode(
-			String departmentMasterCode) {
-		List<DepartmentMasterForm> departmentMasterForm = repository
-				.findByCode(departmentMasterCode);
+	public DepartmentMasterForm findDepartmentMasterDetailsByCode(String departmentMasterCode) {
+		List<DepartmentMasterForm> departmentMasterForm = repository.findByCode(departmentMasterCode);
 		if (!departmentMasterForm.isEmpty()) {
 
 			return departmentMasterForm.get(0);
@@ -60,8 +58,7 @@ public class DepartmentMasterServiceImpl implements DepartmentMasterService {
 		Map<String, String> departmentCodes = new HashMap<>();
 
 		for (DepartmentMasterForm departmentMasterForm : listOfDepartments) {
-			departmentCodes.put(departmentMasterForm.getCode(),
-					departmentMasterForm.getCode());
+			departmentCodes.put(departmentMasterForm.getCode(), departmentMasterForm.getCode());
 		}
 		return departmentCodes;
 	}

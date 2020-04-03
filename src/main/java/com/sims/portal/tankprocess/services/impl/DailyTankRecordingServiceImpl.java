@@ -16,8 +16,7 @@ public class DailyTankRecordingServiceImpl implements DailyTankRecordingService 
 	private DailyTankRecordingFormRepository repository;
 
 	@Override
-	public void saveDailyTankRecordingForm(
-			DailyTankRecordingForm dailyTankRecordingForm) {
+	public void saveDailyTankRecordingForm(DailyTankRecordingForm dailyTankRecordingForm) {
 		repository.save(dailyTankRecordingForm);
 	}
 

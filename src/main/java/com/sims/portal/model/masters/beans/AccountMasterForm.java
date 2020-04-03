@@ -13,8 +13,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "account_master", uniqueConstraints = {
-		@UniqueConstraint(columnNames = "code") })
+@Table(name = "account_master", uniqueConstraints = { @UniqueConstraint(columnNames = "code") })
 public class AccountMasterForm {
 
 	@Id

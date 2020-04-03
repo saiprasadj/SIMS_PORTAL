@@ -29,8 +29,7 @@ public class DailyTankRecordingController {
 		modelAndView.addObject("dailyTankRecordingForm", new DailyTankRecordingForm());
 		modelAndView.addObject("dailyTankRecordingURL",
 				TankProcessConstants.TILES_DAILY_TANK_RECORDING_CONTROLLER_SAVE_URL);
-		modelAndView.setViewName(
-				TankProcessConstants.TILES_DAILY_TANK_RECORDING_CONTROLLER_SHOW_MAIN_JSP);
+		modelAndView.setViewName(TankProcessConstants.TILES_DAILY_TANK_RECORDING_CONTROLLER_SHOW_MAIN_JSP);
 
 		return modelAndView;
 	}
@@ -52,20 +51,17 @@ public class DailyTankRecordingController {
 
 		List<DailyTankRecordingForm> dailyTankRecordingFormListData = dailyTankRecordingService
 				.findDailyTankRecordingForm();
-		modelAndView.addObject("dailyTankRecordingFormListData",
-				dailyTankRecordingFormListData);
+		modelAndView.addObject("dailyTankRecordingFormListData", dailyTankRecordingFormListData);
 
 		return modelAndView;
 	}
 
-	private ModelAndView setDefaultDataForDailyTankRecordingPage(
-			ModelAndView modelAndView) {
+	private ModelAndView setDefaultDataForDailyTankRecordingPage(ModelAndView modelAndView) {
 
 		modelAndView.addObject("dailyTankRecordingForm", new DailyTankRecordingForm());
 		modelAndView.addObject("dailyTankRecordingURL",
 				TankProcessConstants.TILES_DAILY_TANK_RECORDING_CONTROLLER_SAVE_URL);
-		modelAndView.setViewName(
-				TankProcessConstants.TILES_DAILY_TANK_RECORDING_CONTROLLER_SHOW_MAIN_JSP);
+		modelAndView.setViewName(TankProcessConstants.TILES_DAILY_TANK_RECORDING_CONTROLLER_SHOW_MAIN_JSP);
 
 		return modelAndView;
 	}

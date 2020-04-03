@@ -9,7 +9,7 @@ The quickest way to get started is by adding the spring-boot-starter-parent pom.
 	<parent>
 	    <groupId>org.springframework.boot</groupId>
 	    <artifactId>spring-boot-starter-parent</artifactId>
-	    <version>1.5.6.RELEASE</version>
+	    <version>1.5.22.RELEASE</version>
 	</parent>
 ```
 This will take care of dependency management. Remove all version as `spring-boot-starter-parent` will take care of it and add add below dependency

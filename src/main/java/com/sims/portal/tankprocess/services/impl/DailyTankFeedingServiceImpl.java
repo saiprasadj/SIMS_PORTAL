@@ -14,8 +14,7 @@ public class DailyTankFeedingServiceImpl implements DailyTankFeedingService {
 	private DailyTankFeedingFormRepository repository;
 
 	@Override
-	public DailyTankFeedingForm saveDailyTankFeedingForm(
-			DailyTankFeedingForm dailyTankFeedingForm) {
+	public DailyTankFeedingForm saveDailyTankFeedingForm(DailyTankFeedingForm dailyTankFeedingForm) {
 		return repository.save(dailyTankFeedingForm);
 	}
 

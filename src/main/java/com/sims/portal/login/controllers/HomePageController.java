@@ -20,10 +20,9 @@ public class HomePageController {
 	@GetMapping(value = { "/", "/welcome" })
 	public String homePage(ModelMap model) {
 
-		DefaultUserDetails principal = (DefaultUserDetails) SecurityContextHolder
-				.getContext().getAuthentication().getPrincipal();
-		UserCredentials details = adminService
-				.findUserCredential(Integer.parseInt(principal.getUsername()));
+		DefaultUserDetails principal = (DefaultUserDetails) SecurityContextHolder.getContext().getAuthentication()
+				.getPrincipal();
+		UserCredentials details = adminService.findUserCredential(Integer.parseInt(principal.getUsername()));
 		if (details.getChangePassword() == 1) {
 			model.put("changepasswrod", new ForgotPassword());
 			return "changepassword.page";

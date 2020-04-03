@@ -26,10 +26,8 @@ public class WareHouseMasterServiceImpl implements WareHouseMasterService {
 	}
 
 	@Override
-	public WareHouseMasterForm findWareHouseMasterDetailsByCode(
-			String wareHouseMasterCode) {
-		List<WareHouseMasterForm> masterForms = repository
-				.findByCode(wareHouseMasterCode);
+	public WareHouseMasterForm findWareHouseMasterDetailsByCode(String wareHouseMasterCode) {
+		List<WareHouseMasterForm> masterForms = repository.findByCode(wareHouseMasterCode);
 		if (!masterForms.isEmpty()) {
 			return masterForms.get(0);
 		}
