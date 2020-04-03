@@ -17,16 +17,14 @@ public final class DefaultSecurityContextService implements SecurityContextServi
 
 	@Override
 	public boolean isUserAnonymous() {
-		final Authentication authentication = SecurityContextHolder.getContext()
-				.getAuthentication();
+		final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		return authenticationTrustResolver.isAnonymous(authentication);
 	}
 
 	@Override
 	public UserDetails getCurrentUser() {
 
-		Object principal = SecurityContextHolder.getContext().getAuthentication()
-				.getPrincipal();
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
 		if (principal instanceof UserDetails) {
 			return ((UserDetails) principal);

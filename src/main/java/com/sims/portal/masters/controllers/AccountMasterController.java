@@ -40,8 +40,7 @@ public class AccountMasterController {
 	}
 
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
-	public ModelAndView saveAccountMaster(
-			@ModelAttribute("accountMasterForm") AccountMasterForm accountMasterForm) {
+	public ModelAndView saveAccountMaster(@ModelAttribute("accountMasterForm") AccountMasterForm accountMasterForm) {
 
 		ModelAndView modelAndView = new ModelAndView();
 		log.info("AccountMasterForm " + accountMasterForm.getName());
@@ -55,27 +54,23 @@ public class AccountMasterController {
 
 	public ModelAndView findAccountMasterDetails(ModelAndView modelAndView) {
 
-		List<AccountMasterForm> accountMasterFormList = accountMasterService
-				.findAccountMasterDetails();
+		List<AccountMasterForm> accountMasterFormList = accountMasterService.findAccountMasterDetails();
 		modelAndView.addObject("accountMasterFormListData", accountMasterFormList);
 
 		return modelAndView;
 	}
 
 	@RequestMapping(value = "/edit/{code}", method = RequestMethod.GET)
-	public ModelAndView findAccountMasterDetailsByCode(
-			@PathVariable(name = "code") String accountMasterCode) {
+	public ModelAndView findAccountMasterDetailsByCode(@PathVariable(name = "code") String accountMasterCode) {
 
 		log.info("Code Received &&&&&&&&&&&&&&  " + accountMasterCode);
 		ModelAndView modelAndView = new ModelAndView();
-		AccountMasterForm accountMasterForm = accountMasterService
-				.findAccountMasterDetailsByCode(accountMasterCode);
+		AccountMasterForm accountMasterForm = accountMasterService.findAccountMasterDetailsByCode(accountMasterCode);
 		modelAndView.addObject("accountMasterForm", accountMasterForm);
 		findAccountMasterDetails(modelAndView);
 		modelAndView.setViewName(MastersPageConstants.ACCOUNT_MASTER_MAIN_PAGE);
 		modelAndView.addObject("tabToShow", "details");
-		modelAndView.addObject("accountMasterURL",
-				"account/update/" + accountMasterForm.getId());
+		modelAndView.addObject("accountMasterURL", "account/update/" + accountMasterForm.getId());
 
 		return modelAndView;
 	}
@@ -99,8 +94,7 @@ public class AccountMasterController {
 	}
 
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
-	public ModelAndView deleteAccountMasterDetailsByCode(
-			@PathVariable(name = "id") Long id,
+	public ModelAndView deleteAccountMasterDetailsByCode(@PathVariable(name = "id") Long id,
 			@ModelAttribute("accountMasterForm") AccountMasterForm accountMasterForm) {
 
 		log.info("DELETING ID =========== " + id);

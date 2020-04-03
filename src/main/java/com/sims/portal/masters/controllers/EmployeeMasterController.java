@@ -57,16 +57,14 @@ public class EmployeeMasterController {
 
 	public ModelAndView findEmployeeMasterDetails(ModelAndView modelAndView) {
 
-		List<EmployeeMasterForm> employeeMasterFormList = employeeMasterService
-				.findEmployeeMasterDetails();
+		List<EmployeeMasterForm> employeeMasterFormList = employeeMasterService.findEmployeeMasterDetails();
 		modelAndView.addObject("employeeMasterFormListData", employeeMasterFormList);
 
 		return modelAndView;
 	}
 
 	@RequestMapping(value = "/edit/{code}", method = RequestMethod.GET)
-	public ModelAndView findEmployeeMasterDetailsByCode(
-			@PathVariable(name = "code") String employeeMasterCode) {
+	public ModelAndView findEmployeeMasterDetailsByCode(@PathVariable(name = "code") String employeeMasterCode) {
 
 		log.info("Code Received &&&&&&&&&&&&&&  " + employeeMasterCode);
 		ModelAndView modelAndView = new ModelAndView();
@@ -76,8 +74,7 @@ public class EmployeeMasterController {
 		findEmployeeMasterDetails(modelAndView);
 		modelAndView.setViewName(MastersPageConstants.EMPLOYEE_MASTER_MAIN_PAGE);
 		modelAndView.addObject("tabToShow", "details");
-		modelAndView.addObject("employeeMasterURL",
-				"employee/update/" + employeeMasterForm.getId());
+		modelAndView.addObject("employeeMasterURL", "employee/update/" + employeeMasterForm.getId());
 
 		return modelAndView;
 	}
@@ -101,8 +98,7 @@ public class EmployeeMasterController {
 	}
 
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
-	public ModelAndView deleteEmployeeMasterDetailsByCode(
-			@PathVariable(name = "id") Long id,
+	public ModelAndView deleteEmployeeMasterDetailsByCode(@PathVariable(name = "id") Long id,
 			@ModelAttribute("employeeMasterForm") EmployeeMasterForm employeeMasterForm) {
 
 		log.info("DELETING ID =========== " + id);
@@ -119,8 +115,7 @@ public class EmployeeMasterController {
 
 		modelAndView.addObject("employeeMasterForm", new EmployeeMasterForm());
 
-		Map<String, String> departmentCodesMap = departmentMasterService
-				.getDepartmentCodes();
+		Map<String, String> departmentCodesMap = departmentMasterService.getDepartmentCodes();
 		modelAndView.addObject("departmentCodesMap", departmentCodesMap);
 		modelAndView.addObject("employeeMasterURL", "employee/save");
 		modelAndView.setViewName(MastersPageConstants.EMPLOYEE_MASTER_MAIN_PAGE);

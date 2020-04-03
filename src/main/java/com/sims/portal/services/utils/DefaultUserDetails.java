@@ -22,8 +22,7 @@ public class DefaultUserDetails extends User {
 
 	private String lastname;
 
-	public DefaultUserDetails(UserCredentials user,
-			Collection<? extends GrantedAuthority> authorities) {
+	public DefaultUserDetails(UserCredentials user, Collection<? extends GrantedAuthority> authorities) {
 		super(String.valueOf(user.getUserId()), user.getPassword(), authorities);
 		firstname = String.valueOf(user.getUserId());
 		lastname = user.getRole();

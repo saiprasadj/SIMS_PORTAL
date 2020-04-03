@@ -54,16 +54,14 @@ public class WareHouseMasterController {
 
 	public ModelAndView findWareHouseMasterDetails(ModelAndView modelAndView) {
 
-		List<WareHouseMasterForm> wareHouseMasterFormList = wareHouseMasterService
-				.findWareHouseMasterDetails();
+		List<WareHouseMasterForm> wareHouseMasterFormList = wareHouseMasterService.findWareHouseMasterDetails();
 		modelAndView.addObject("wareHouseMasterFormListData", wareHouseMasterFormList);
 
 		return modelAndView;
 	}
 
 	@RequestMapping(value = "/edit/{code}", method = RequestMethod.GET)
-	public ModelAndView findWareHouseMasterDetailsByCode(
-			@PathVariable(name = "code") String wareHouseMasterCode) {
+	public ModelAndView findWareHouseMasterDetailsByCode(@PathVariable(name = "code") String wareHouseMasterCode) {
 
 		log.info("Code Received &&&&&&&&&&&&&&  " + wareHouseMasterCode);
 		ModelAndView modelAndView = new ModelAndView();
@@ -73,8 +71,7 @@ public class WareHouseMasterController {
 		findWareHouseMasterDetails(modelAndView);
 		modelAndView.setViewName(MastersPageConstants.WARE_HOUSE_MASTER_MAIN_PAGE);
 		modelAndView.addObject("tabToShow", "details");
-		modelAndView.addObject("wareHouseMasterURL",
-				"warehouse/update/" + wareHouseMasterForm.getId());
+		modelAndView.addObject("wareHouseMasterURL", "warehouse/update/" + wareHouseMasterForm.getId());
 
 		return modelAndView;
 	}
@@ -98,8 +95,7 @@ public class WareHouseMasterController {
 	}
 
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
-	public ModelAndView deleteWareHouseMasterDetailsByCode(
-			@PathVariable(name = "id") Long id,
+	public ModelAndView deleteWareHouseMasterDetailsByCode(@PathVariable(name = "id") Long id,
 			@ModelAttribute("wareHouseMasterForm") WareHouseMasterForm wareHouseMasterForm) {
 
 		log.info("DELETING ID =========== " + id);
