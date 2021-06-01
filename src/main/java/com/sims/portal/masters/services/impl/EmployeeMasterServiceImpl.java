@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.sims.portal.masters.dao.EmployeeMasterDao;
+import com.sims.portal.masters.repository.EmployeeMasterFormRepository;
 import com.sims.portal.masters.services.EmployeeMasterService;
 import com.sims.portal.model.masters.beans.EmployeeMasterForm;
 
@@ -13,39 +13,35 @@ import com.sims.portal.model.masters.beans.EmployeeMasterForm;
 public class EmployeeMasterServiceImpl implements EmployeeMasterService {
 
 	@Autowired
-	private EmployeeMasterDao employeeMasterDao;
-
-	public EmployeeMasterForm saveEmployeeMaster(EmployeeMasterForm employeeMasterForm) {
-
-		employeeMasterDao.saveEmployeeMaster(employeeMasterForm);
-
-		return employeeMasterForm;
-
-	}
+	private EmployeeMasterFormRepository repository;
 
 	@Override
-	public EmployeeMasterForm updateEmployeeMaster(EmployeeMasterForm employeeMasterForm) {
-
-		employeeMasterDao.updateEmployeeMaster(employeeMasterForm);
-
-		return employeeMasterForm;
-	}
-
-	@Override
-	public Boolean deleteEmployeeMaster(EmployeeMasterForm employeeMasterForm) {
-
-		return employeeMasterDao.deleteEmployeeMaster(employeeMasterForm);
+	public void saveEmployeeMaster(EmployeeMasterForm employeeMasterForm) {
+		repository.save(employeeMasterForm);
 	}
 
 	@Override
 	public List<EmployeeMasterForm> findEmployeeMasterDetails() {
-
-		return employeeMasterDao.findEmployeeMasterDetails();
+		return repository.findAll();
 	}
 
 	@Override
-	public EmployeeMasterForm findEmployeeMasterDetailsByCode(String code) {
-
-		return employeeMasterDao.findEmployeeMasterDetailsByCode(code);
+	public EmployeeMasterForm findEmployeeMasterDetailsByCode(String employeeMasterCode) {
+		List<EmployeeMasterForm> masterForms = repository.findByCode(employeeMasterCode);
+		if (!masterForms.isEmpty()) {
+			return masterForms.get(0);
+		}
+		return new EmployeeMasterForm();
 	}
+
+	@Override
+	public void updateEmployeeMaster(EmployeeMasterForm employeeMasterForm) {
+		repository.save(employeeMasterForm);
+	}
+
+	@Override
+	public void deleteEmployeeMaster(EmployeeMasterForm employeeMasterForm) {
+		repository.delete(employeeMasterForm);
+	}
+
 }

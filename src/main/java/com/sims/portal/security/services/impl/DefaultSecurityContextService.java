@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import com.sims.portal.security.services.SecurityContextService;
 
-
 @Service("securityContextService")
 public final class DefaultSecurityContextService implements SecurityContextService {
 
@@ -18,8 +17,7 @@ public final class DefaultSecurityContextService implements SecurityContextServi
 
 	@Override
 	public boolean isUserAnonymous() {
-		final Authentication authentication =
-				SecurityContextHolder.getContext().getAuthentication();
+		final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		return authenticationTrustResolver.isAnonymous(authentication);
 	}
 
@@ -29,9 +27,11 @@ public final class DefaultSecurityContextService implements SecurityContextServi
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
 		if (principal instanceof UserDetails) {
-			return ((UserDetails)principal);
-		} else {
+			return ((UserDetails) principal);
+		}
+		else {
 			return null;
 		}
 	}
+
 }

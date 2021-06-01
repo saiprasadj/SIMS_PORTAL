@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.sims.portal.masters.dao.AccountMasterDao;
+import com.sims.portal.masters.repository.AccountMasterFormRepository;
 import com.sims.portal.masters.services.AccountMasterService;
 import com.sims.portal.model.masters.beans.AccountMasterForm;
 
@@ -13,39 +13,38 @@ import com.sims.portal.model.masters.beans.AccountMasterForm;
 public class AccountMasterServiceImpl implements AccountMasterService {
 
 	@Autowired
-	private AccountMasterDao accountMasterDao;
+	private AccountMasterFormRepository repository;
 
+	@Override
 	public AccountMasterForm saveAccountMaster(AccountMasterForm accountMasterForm) {
-
-		accountMasterDao.saveAccountMaster(accountMasterForm);
-
-		return accountMasterForm;
-
+		return repository.save(accountMasterForm);
 	}
 
 	@Override
 	public AccountMasterForm updateAccountMaster(AccountMasterForm accountMasterForm) {
-
-		accountMasterDao.updateAccountMaster(accountMasterForm);
-
-		return accountMasterForm;
+		return repository.save(accountMasterForm);
 	}
 
 	@Override
 	public Boolean deleteAccountMaster(AccountMasterForm accountMasterForm) {
-
-		return accountMasterDao.deleteAccountMaster(accountMasterForm);
+		repository.delete(accountMasterForm);
+		return true;
 	}
 
 	@Override
 	public List<AccountMasterForm> findAccountMasterDetails() {
-
-		return accountMasterDao.findAccountMasterDetails();
+		return repository.findAll();
 	}
 
 	@Override
 	public AccountMasterForm findAccountMasterDetailsByCode(String code) {
+		List<AccountMasterForm> accountMasterForm = repository.findByCode(code);
+		if (!accountMasterForm.isEmpty()) {
 
-		return accountMasterDao.findAccountMasterDetailsByCode(code);
+			return accountMasterForm.get(0);
+		}
+
+		return new AccountMasterForm();
 	}
+
 }

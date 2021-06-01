@@ -2,6 +2,7 @@ package com.sims.portal.masters.controllers;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,6 +16,9 @@ import com.sims.portal.masters.constants.MastersPageConstants;
 import com.sims.portal.masters.services.WareHouseMasterService;
 import com.sims.portal.model.masters.beans.WareHouseMasterForm;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @RequestMapping(value = "/master/warehouse")
 @Controller
 public class WareHouseMasterController {
@@ -39,7 +43,7 @@ public class WareHouseMasterController {
 			@ModelAttribute("wareHouseMasterForm") WareHouseMasterForm wareHouseMasterForm) {
 
 		ModelAndView modelAndView = new ModelAndView();
-		System.out.println("WareHouseMasterForm " + wareHouseMasterForm.getName());
+		log.info("WareHouseMasterForm " + wareHouseMasterForm.getName());
 		wareHouseMasterService.saveWareHouseMaster(wareHouseMasterForm);
 		setDefaultDataForWareHouseMasterPage(modelAndView);
 		findWareHouseMasterDetails(modelAndView);
@@ -59,7 +63,7 @@ public class WareHouseMasterController {
 	@RequestMapping(value = "/edit/{code}", method = RequestMethod.GET)
 	public ModelAndView findWareHouseMasterDetailsByCode(@PathVariable(name = "code") String wareHouseMasterCode) {
 
-		System.out.println("Code Received &&&&&&&&&&&&&&  " + wareHouseMasterCode);
+		log.info("Code Received &&&&&&&&&&&&&&  " + wareHouseMasterCode);
 		ModelAndView modelAndView = new ModelAndView();
 		WareHouseMasterForm wareHouseMasterForm = wareHouseMasterService
 				.findWareHouseMasterDetailsByCode(wareHouseMasterCode);
@@ -76,9 +80,9 @@ public class WareHouseMasterController {
 	public ModelAndView updateWareHouseMaster(@PathVariable(name = "id") Long id,
 			@ModelAttribute("wareHouseMasterForm") WareHouseMasterForm wareHouseMasterForm) {
 
-		System.out.println("UPDATING ID =========== " + id);
+		log.info("UPDATING ID =========== " + id);
 		ModelAndView modelAndView = new ModelAndView();
-		System.out.println("UPDATE CODE === " + id);
+		log.info("UPDATE CODE === " + id);
 		wareHouseMasterForm.setId(id);
 		wareHouseMasterService.updateWareHouseMaster(wareHouseMasterForm);
 		setDefaultDataForWareHouseMasterPage(modelAndView);
@@ -94,7 +98,7 @@ public class WareHouseMasterController {
 	public ModelAndView deleteWareHouseMasterDetailsByCode(@PathVariable(name = "id") Long id,
 			@ModelAttribute("wareHouseMasterForm") WareHouseMasterForm wareHouseMasterForm) {
 
-		System.out.println("DELETING ID =========== " + id);
+		log.info("DELETING ID =========== " + id);
 		ModelAndView modelAndView = new ModelAndView();
 		wareHouseMasterForm.setId(id);
 		wareHouseMasterService.deleteWareHouseMaster(wareHouseMasterForm);
@@ -108,7 +112,7 @@ public class WareHouseMasterController {
 
 		modelAndView.addObject("wareHouseMasterForm", new WareHouseMasterForm());
 
-		HashMap<String, String> typesOfCustomersMap = new HashMap<String, String>();
+		Map<String, String> typesOfCustomersMap = new HashMap<>();
 
 		typesOfCustomersMap.put("customertype1", "Customer Type 1");
 		typesOfCustomersMap.put("customertype2", "Customer Type 2");

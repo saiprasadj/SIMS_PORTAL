@@ -2,6 +2,7 @@ package com.sims.portal.masters.controllers;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,9 +15,14 @@ import com.sims.portal.masters.constants.MastersPageConstants;
 import com.sims.portal.masters.services.AccountMasterService;
 import com.sims.portal.model.masters.beans.AccountMasterForm;
 
+import lombok.extern.slf4j.Slf4j;
+
 @RequestMapping(value = "/master/account")
 @Controller
+@Slf4j
 public class AccountMasterController {
+
+	private static final String MESSAGE = "message";
 
 	@Autowired
 	private AccountMasterService accountMasterService;
@@ -37,11 +43,11 @@ public class AccountMasterController {
 	public ModelAndView saveAccountMaster(@ModelAttribute("accountMasterForm") AccountMasterForm accountMasterForm) {
 
 		ModelAndView modelAndView = new ModelAndView();
-		System.out.println("AccountMasterForm " + accountMasterForm.getName());
+		log.info("AccountMasterForm " + accountMasterForm.getName());
 		accountMasterService.saveAccountMaster(accountMasterForm);
 		setDefaultDataForAccountMasterPage(modelAndView);
 		findAccountMasterDetails(modelAndView);
-		modelAndView.addObject("message", "Data Saved Successfully !!!");
+		modelAndView.addObject(MESSAGE, "Data Saved Successfully !!!");
 
 		return modelAndView;
 	}
@@ -57,7 +63,7 @@ public class AccountMasterController {
 	@RequestMapping(value = "/edit/{code}", method = RequestMethod.GET)
 	public ModelAndView findAccountMasterDetailsByCode(@PathVariable(name = "code") String accountMasterCode) {
 
-		System.out.println("Code Received &&&&&&&&&&&&&&  " + accountMasterCode);
+		log.info("Code Received &&&&&&&&&&&&&&  " + accountMasterCode);
 		ModelAndView modelAndView = new ModelAndView();
 		AccountMasterForm accountMasterForm = accountMasterService.findAccountMasterDetailsByCode(accountMasterCode);
 		modelAndView.addObject("accountMasterForm", accountMasterForm);
@@ -73,16 +79,16 @@ public class AccountMasterController {
 	public ModelAndView updateAccountMaster(@PathVariable(name = "id") Long id,
 			@ModelAttribute("accountMasterForm") AccountMasterForm accountMasterForm) {
 
-		System.out.println("UPDATING ID =========== " + id);
+		log.info("UPDATING ID =========== " + id);
 		ModelAndView modelAndView = new ModelAndView();
-		System.out.println("UPDATE CODE === " + id);
+		log.info("UPDATE CODE === " + id);
 		accountMasterForm.setId(id);
 		accountMasterService.updateAccountMaster(accountMasterForm);
 		setDefaultDataForAccountMasterPage(modelAndView);
 		findAccountMasterDetails(modelAndView);
-		modelAndView.addObject("message", "Data Updated Successfully !!!");
-		
-		//modelAndView.setViewName("redirect:/master/account");
+		modelAndView.addObject(MESSAGE, "Data Updated Successfully !!!");
+
+		// modelAndView.setViewName("redirect:/master/account");
 
 		return modelAndView;
 	}
@@ -91,13 +97,13 @@ public class AccountMasterController {
 	public ModelAndView deleteAccountMasterDetailsByCode(@PathVariable(name = "id") Long id,
 			@ModelAttribute("accountMasterForm") AccountMasterForm accountMasterForm) {
 
-		System.out.println("DELETING ID =========== " + id);
+		log.info("DELETING ID =========== " + id);
 		ModelAndView modelAndView = new ModelAndView();
 		accountMasterForm.setId(id);
 		accountMasterService.deleteAccountMaster(accountMasterForm);
 		setDefaultDataForAccountMasterPage(modelAndView);
 		findAccountMasterDetails(modelAndView);
-		modelAndView.addObject("message", "Data Deleted Successfully !!!");
+		modelAndView.addObject(MESSAGE, "Data Deleted Successfully !!!");
 		return modelAndView;
 	}
 
@@ -105,7 +111,7 @@ public class AccountMasterController {
 
 		modelAndView.addObject("accountMasterForm", new AccountMasterForm());
 
-		HashMap<String, String> typesOfCustomersMap = new HashMap<String, String>();
+		Map<String, String> typesOfCustomersMap = new HashMap<>();
 
 		typesOfCustomersMap.put("customertype1", "Customer Type 1");
 		typesOfCustomersMap.put("customertype2", "Customer Type 2");

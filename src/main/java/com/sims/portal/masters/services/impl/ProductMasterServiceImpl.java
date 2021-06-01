@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.sims.portal.masters.dao.ProductMasterDao;
+import com.sims.portal.masters.repository.ProductMasterFormRepository;
 import com.sims.portal.masters.services.ProductMasterService;
 import com.sims.portal.model.masters.beans.ProductMasterForm;
 
@@ -13,39 +13,35 @@ import com.sims.portal.model.masters.beans.ProductMasterForm;
 public class ProductMasterServiceImpl implements ProductMasterService {
 
 	@Autowired
-	private ProductMasterDao productMasterDao;
-
-	public ProductMasterForm saveProductMaster(ProductMasterForm productMasterForm) {
-
-		productMasterDao.saveProductMaster(productMasterForm);
-
-		return productMasterForm;
-
-	}
+	private ProductMasterFormRepository repository;
 
 	@Override
-	public ProductMasterForm updateProductMaster(ProductMasterForm productMasterForm) {
-
-		productMasterDao.updateProductMaster(productMasterForm);
-
-		return productMasterForm;
-	}
-
-	@Override
-	public Boolean deleteProductMaster(ProductMasterForm productMasterForm) {
-
-		return productMasterDao.deleteProductMaster(productMasterForm);
+	public void saveProductMaster(ProductMasterForm productMasterForm) {
+		repository.save(productMasterForm);
 	}
 
 	@Override
 	public List<ProductMasterForm> findProductMasterDetails() {
-
-		return productMasterDao.findProductMasterDetails();
+		return repository.findAll();
 	}
 
 	@Override
-	public ProductMasterForm findProductMasterDetailsByCode(String code) {
-
-		return productMasterDao.findProductMasterDetailsByCode(code);
+	public ProductMasterForm findProductMasterDetailsByCode(String productMasterCode) {
+		List<ProductMasterForm> masterForms = repository.findByCode(productMasterCode);
+		if (!masterForms.isEmpty()) {
+			return masterForms.get(0);
+		}
+		return new ProductMasterForm();
 	}
+
+	@Override
+	public void updateProductMaster(ProductMasterForm productMasterForm) {
+		repository.save(productMasterForm);
+	}
+
+	@Override
+	public void deleteProductMaster(ProductMasterForm productMasterForm) {
+		repository.delete(productMasterForm);
+	}
+
 }

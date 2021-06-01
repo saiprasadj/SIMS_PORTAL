@@ -1,7 +1,5 @@
 package com.sims.portal.model.masters.beans;
 
-import java.io.Serializable;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -9,156 +7,47 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 @Entity
 @Table(name = "account_master", uniqueConstraints = { @UniqueConstraint(columnNames = "code") })
-public class AccountMasterForm implements Serializable {
-
-	private static final long serialVersionUID = 1L;
-	private Long id;
-	private String name;
-	private String alias;
-	private String emailid;
-	private String code;
-	private String billingaddress;
-	private String typeofcustomer;
-	private String deliveryaddress;
-	private String locality;
-	private String pannumber;
-	private String state;
-	private String phonenumber;
-	private String tin;
-	private String contactperson;
-	private String contactpersonmobilenumber;
-	private String contactpersonemailid;
+public class AccountMasterForm {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	public Long getId() {
-		return id;
-	}
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+	private String name;
 
-	public String getName() {
-		return name;
-	}
+	private String alias;
 
-	public void setName(String name) {
-		this.name = name;
-	}
+	private String emailid;
 
-	public String getAlias() {
-		return alias;
-	}
+	private String code;
 
-	public void setAlias(String alias) {
-		this.alias = alias;
-	}
+	private String billingaddress;
 
-	public String getEmailid() {
-		return emailid;
-	}
+	private String typeofcustomer;
 
-	public void setEmailid(String emailid) {
-		this.emailid = emailid;
-	}
+	private String deliveryaddress;
 
-	public String getCode() {
-		return code;
-	}
+	private String locality;
 
-	public void setCode(String code) {
-		this.code = code;
-	}
+	private String pannumber;
 
-	public String getBillingaddress() {
-		return billingaddress;
-	}
+	private String state;
 
-	public void setBillingaddress(String billingaddress) {
-		this.billingaddress = billingaddress;
-	}
+	private String phonenumber;
 
-	public String getTypeofcustomer() {
-		return typeofcustomer;
-	}
+	private String tin;
 
-	public void setTypeofcustomer(String typeofcustomer) {
-		this.typeofcustomer = typeofcustomer;
-	}
+	private String contactperson;
 
-	public String getDeliveryaddress() {
-		return deliveryaddress;
-	}
+	private String contactpersonmobilenumber;
 
-	public void setDeliveryaddress(String deliveryaddress) {
-		this.deliveryaddress = deliveryaddress;
-	}
-
-	public String getLocality() {
-		return locality;
-	}
-
-	public void setLocality(String locality) {
-		this.locality = locality;
-	}
-
-	public String getPannumber() {
-		return pannumber;
-	}
-
-	public void setPannumber(String pannumber) {
-		this.pannumber = pannumber;
-	}
-
-	public String getState() {
-		return state;
-	}
-
-	public void setState(String state) {
-		this.state = state;
-	}
-
-	public String getPhonenumber() {
-		return phonenumber;
-	}
-
-	public void setPhonenumber(String phonenumber) {
-		this.phonenumber = phonenumber;
-	}
-
-	public String getTin() {
-		return tin;
-	}
-
-	public void setTin(String tin) {
-		this.tin = tin;
-	}
-
-	public String getContactperson() {
-		return contactperson;
-	}
-
-	public void setContactperson(String contactperson) {
-		this.contactperson = contactperson;
-	}
-
-	public String getContactpersonmobilenumber() {
-		return contactpersonmobilenumber;
-	}
-
-	public void setContactpersonmobilenumber(String contactpersonmobilenumber) {
-		this.contactpersonmobilenumber = contactpersonmobilenumber;
-	}
-
-	public String getContactpersonemailid() {
-		return contactpersonemailid;
-	}
-
-	public void setContactpersonemailid(String contactpersonemailid) {
-		this.contactpersonemailid = contactpersonemailid;
-	}
+	private String contactpersonemailid;
 
 }

@@ -35,7 +35,8 @@ public class DepartmentMasterController {
 	}
 
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
-	public ModelAndView saveDepartmentMaster(@ModelAttribute("departmentMasterForm") DepartmentMasterForm departmentMasterForm) {
+	public ModelAndView saveDepartmentMaster(
+			@ModelAttribute("departmentMasterForm") DepartmentMasterForm departmentMasterForm) {
 
 		ModelAndView modelAndView = new ModelAndView();
 		System.out.println("DepartmentMasterForm " + departmentMasterForm.getName());
@@ -60,7 +61,8 @@ public class DepartmentMasterController {
 
 		System.out.println("Code Received &&&&&&&&&&&&&&  " + departmentMasterCode);
 		ModelAndView modelAndView = new ModelAndView();
-		DepartmentMasterForm departmentMasterForm = departmentMasterService.findDepartmentMasterDetailsByCode(departmentMasterCode);
+		DepartmentMasterForm departmentMasterForm = departmentMasterService
+				.findDepartmentMasterDetailsByCode(departmentMasterCode);
 		modelAndView.addObject("departmentMasterForm", departmentMasterForm);
 		findDepartmentMasterDetails(modelAndView);
 		modelAndView.setViewName(MastersPageConstants.DEPARTMENT_MASTER_MAIN_PAGE);

@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.sims.portal.masters.dao.WareHouseMasterDao;
+import com.sims.portal.masters.repository.WareHouseMasterFormRepository;
 import com.sims.portal.masters.services.WareHouseMasterService;
 import com.sims.portal.model.masters.beans.WareHouseMasterForm;
 
@@ -13,39 +13,35 @@ import com.sims.portal.model.masters.beans.WareHouseMasterForm;
 public class WareHouseMasterServiceImpl implements WareHouseMasterService {
 
 	@Autowired
-	private WareHouseMasterDao wareHouseMasterDao;
-
-	public WareHouseMasterForm saveWareHouseMaster(WareHouseMasterForm wareHouseMasterForm) {
-
-		wareHouseMasterDao.saveWareHouseMaster(wareHouseMasterForm);
-
-		return wareHouseMasterForm;
-
-	}
+	private WareHouseMasterFormRepository repository;
 
 	@Override
-	public WareHouseMasterForm updateWareHouseMaster(WareHouseMasterForm wareHouseMasterForm) {
-
-		wareHouseMasterDao.updateWareHouseMaster(wareHouseMasterForm);
-
-		return wareHouseMasterForm;
-	}
-
-	@Override
-	public Boolean deleteWareHouseMaster(WareHouseMasterForm wareHouseMasterForm) {
-
-		return wareHouseMasterDao.deleteWareHouseMaster(wareHouseMasterForm);
+	public void saveWareHouseMaster(WareHouseMasterForm wareHouseMasterForm) {
+		repository.save(wareHouseMasterForm);
 	}
 
 	@Override
 	public List<WareHouseMasterForm> findWareHouseMasterDetails() {
-
-		return wareHouseMasterDao.findWareHouseMasterDetails();
+		return repository.findAll();
 	}
 
 	@Override
-	public WareHouseMasterForm findWareHouseMasterDetailsByCode(String code) {
-
-		return wareHouseMasterDao.findWareHouseMasterDetailsByCode(code);
+	public WareHouseMasterForm findWareHouseMasterDetailsByCode(String wareHouseMasterCode) {
+		List<WareHouseMasterForm> masterForms = repository.findByCode(wareHouseMasterCode);
+		if (!masterForms.isEmpty()) {
+			return masterForms.get(0);
+		}
+		return new WareHouseMasterForm();
 	}
+
+	@Override
+	public void updateWareHouseMaster(WareHouseMasterForm wareHouseMasterForm) {
+		repository.save(wareHouseMasterForm);
+	}
+
+	@Override
+	public void deleteWareHouseMaster(WareHouseMasterForm wareHouseMasterForm) {
+		repository.delete(wareHouseMasterForm);
+	}
+
 }

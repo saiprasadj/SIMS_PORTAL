@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.sims.portal.masters.dao.SectionMasterDao;
+import com.sims.portal.masters.repository.SectionMasterFormRepository;
 import com.sims.portal.masters.services.SectionMasterService;
 import com.sims.portal.model.masters.beans.SectionMasterForm;
 
@@ -13,39 +13,35 @@ import com.sims.portal.model.masters.beans.SectionMasterForm;
 public class SectionMasterServiceImpl implements SectionMasterService {
 
 	@Autowired
-	private SectionMasterDao sectionMasterDao;
-
-	public SectionMasterForm saveSectionMaster(SectionMasterForm sectionMasterForm) {
-
-		sectionMasterDao.saveSectionMaster(sectionMasterForm);
-
-		return sectionMasterForm;
-
-	}
+	private SectionMasterFormRepository repository;
 
 	@Override
-	public SectionMasterForm updateSectionMaster(SectionMasterForm sectionMasterForm) {
-
-		sectionMasterDao.updateSectionMaster(sectionMasterForm);
-
-		return sectionMasterForm;
-	}
-
-	@Override
-	public Boolean deleteSectionMaster(SectionMasterForm sectionMasterForm) {
-
-		return sectionMasterDao.deleteSectionMaster(sectionMasterForm);
+	public void saveSectionMaster(SectionMasterForm sectionMasterForm) {
+		repository.save(sectionMasterForm);
 	}
 
 	@Override
 	public List<SectionMasterForm> findSectionMasterDetails() {
-
-		return sectionMasterDao.findSectionMasterDetails();
+		return repository.findAll();
 	}
 
 	@Override
-	public SectionMasterForm findSectionMasterDetailsByCode(String code) {
-
-		return sectionMasterDao.findSectionMasterDetailsByCode(code);
+	public SectionMasterForm findSectionMasterDetailsByCode(String sectionMasterCode) {
+		List<SectionMasterForm> masterForms = repository.findByCode(sectionMasterCode);
+		if (!masterForms.isEmpty()) {
+			return masterForms.get(0);
+		}
+		return new SectionMasterForm();
 	}
+
+	@Override
+	public void updateSectionMaster(SectionMasterForm sectionMasterForm) {
+		repository.save(sectionMasterForm);
+	}
+
+	@Override
+	public void deleteSectionMaster(SectionMasterForm sectionMasterForm) {
+		repository.delete(sectionMasterForm);
+	}
+
 }

@@ -1,7 +1,7 @@
 package com.sims.portal.masters.controllers;
 
-import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,8 +16,11 @@ import com.sims.portal.masters.services.DepartmentMasterService;
 import com.sims.portal.masters.services.EmployeeMasterService;
 import com.sims.portal.model.masters.beans.EmployeeMasterForm;
 
+import lombok.extern.slf4j.Slf4j;
+
 @RequestMapping(value = "/master/employee")
 @Controller
+@Slf4j
 public class EmployeeMasterController {
 
 	@Autowired
@@ -43,7 +46,7 @@ public class EmployeeMasterController {
 			@ModelAttribute("employeeMasterForm") EmployeeMasterForm employeeMasterForm) {
 
 		ModelAndView modelAndView = new ModelAndView();
-		System.out.println("EmployeeMasterForm " + employeeMasterForm.getName());
+		log.info("EmployeeMasterForm " + employeeMasterForm.getName());
 		employeeMasterService.saveEmployeeMaster(employeeMasterForm);
 		setDefaultDataForEmployeeMasterPage(modelAndView);
 		findEmployeeMasterDetails(modelAndView);
@@ -63,7 +66,7 @@ public class EmployeeMasterController {
 	@RequestMapping(value = "/edit/{code}", method = RequestMethod.GET)
 	public ModelAndView findEmployeeMasterDetailsByCode(@PathVariable(name = "code") String employeeMasterCode) {
 
-		System.out.println("Code Received &&&&&&&&&&&&&&  " + employeeMasterCode);
+		log.info("Code Received &&&&&&&&&&&&&&  " + employeeMasterCode);
 		ModelAndView modelAndView = new ModelAndView();
 		EmployeeMasterForm employeeMasterForm = employeeMasterService
 				.findEmployeeMasterDetailsByCode(employeeMasterCode);
@@ -80,9 +83,9 @@ public class EmployeeMasterController {
 	public ModelAndView updateEmployeeMaster(@PathVariable(name = "id") Long id,
 			@ModelAttribute("employeeMasterForm") EmployeeMasterForm employeeMasterForm) {
 
-		System.out.println("UPDATING ID =========== " + id);
+		log.info("UPDATING ID =========== " + id);
 		ModelAndView modelAndView = new ModelAndView();
-		System.out.println("UPDATE CODE === " + id);
+		log.info("UPDATE CODE === " + id);
 		employeeMasterForm.setId(id);
 		employeeMasterService.updateEmployeeMaster(employeeMasterForm);
 		setDefaultDataForEmployeeMasterPage(modelAndView);
@@ -98,7 +101,7 @@ public class EmployeeMasterController {
 	public ModelAndView deleteEmployeeMasterDetailsByCode(@PathVariable(name = "id") Long id,
 			@ModelAttribute("employeeMasterForm") EmployeeMasterForm employeeMasterForm) {
 
-		System.out.println("DELETING ID =========== " + id);
+		log.info("DELETING ID =========== " + id);
 		ModelAndView modelAndView = new ModelAndView();
 		employeeMasterForm.setId(id);
 		employeeMasterService.deleteEmployeeMaster(employeeMasterForm);
@@ -112,7 +115,7 @@ public class EmployeeMasterController {
 
 		modelAndView.addObject("employeeMasterForm", new EmployeeMasterForm());
 
-		HashMap<String, String> departmentCodesMap = departmentMasterService.getDepartmentCodes();
+		Map<String, String> departmentCodesMap = departmentMasterService.getDepartmentCodes();
 		modelAndView.addObject("departmentCodesMap", departmentCodesMap);
 		modelAndView.addObject("employeeMasterURL", "employee/save");
 		modelAndView.setViewName(MastersPageConstants.EMPLOYEE_MASTER_MAIN_PAGE);

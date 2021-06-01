@@ -1,92 +1,38 @@
 package com.sims.portal.model.masters.beans;
 
-import java.io.Serializable;
-
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 @Entity
-@Table(name = "product_master", uniqueConstraints = { @UniqueConstraint(columnNames = "code") })
-public class ProductMasterForm implements Serializable {
-
-	private static final long serialVersionUID = 1L;
-	private Long id;
-	private String name;
-	private String code;
-	private String alias;
-	private String uom;
-	private Double buyingPrice;
-	private String reorderLevel;
-	private Double sellingPrice;
+@Table(name = "product_master")
+public class ProductMasterForm {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	public Long getId() {
-		return id;
-	}
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+	private String name;
 
-	public String getName() {
-		return name;
-	}
+	@Column(unique = true)
+	private String code;
 
-	public void setName(String name) {
-		this.name = name;
-	}
+	private String alias;
 
-	public String getCode() {
-		return code;
-	}
+	private String uom;
 
-	public void setCode(String code) {
-		this.code = code;
-	}
+	private Double buyingPrice;
 
-	public String getAlias() {
-		return alias;
-	}
+	private String reorderLevel;
 
-	public void setAlias(String alias) {
-		this.alias = alias;
-	}
-
-	public String getUom() {
-		return uom;
-	}
-
-	public void setUom(String uom) {
-		this.uom = uom;
-	}
-
-	public Double getBuyingPrice() {
-		return buyingPrice;
-	}
-
-	public void setBuyingPrice(Double buyingPrice) {
-		this.buyingPrice = buyingPrice;
-	}
-
-	public String getReorderLevel() {
-		return reorderLevel;
-	}
-
-	public void setReorderLevel(String reorderLevel) {
-		this.reorderLevel = reorderLevel;
-	}
-
-	public Double getSellingPrice() {
-		return sellingPrice;
-	}
-
-	public void setSellingPrice(Double sellingPrice) {
-		this.sellingPrice = sellingPrice;
-	}
+	private Double sellingPrice;
 
 }

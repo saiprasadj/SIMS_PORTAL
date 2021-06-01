@@ -6,14 +6,14 @@ import com.sims.portal.model.masters.beans.EmployeeMasterForm;
 
 public interface EmployeeMasterService {
 
-	public EmployeeMasterForm saveEmployeeMaster(EmployeeMasterForm employeeMasterForm);
+	void saveEmployeeMaster(EmployeeMasterForm employeeMasterForm);
 
-	public EmployeeMasterForm updateEmployeeMaster(EmployeeMasterForm employeeMasterForm);
+	List<EmployeeMasterForm> findEmployeeMasterDetails();
 
-	public Boolean deleteEmployeeMaster(EmployeeMasterForm employeeMasterForm);
+	EmployeeMasterForm findEmployeeMasterDetailsByCode(String employeeMasterCode);
 
-	public List<EmployeeMasterForm> findEmployeeMasterDetails();
+	void updateEmployeeMaster(EmployeeMasterForm employeeMasterForm);
 
-	public EmployeeMasterForm findEmployeeMasterDetailsByCode(String code);
+	void deleteEmployeeMaster(EmployeeMasterForm employeeMasterForm);
 
 }
